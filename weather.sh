@@ -62,15 +62,19 @@ case "$icon_code" in
 esac
 
 # ---------------- TOOLTIP ----------------
-tooltip="$icon  ${desc^}\n\
-☁ Clouds: ${clouds}%\n\
-  Humid:  ${humidity}%\n\
-󰔏  High:   ${temp_max}°C\n\
-󰔏  Low:    ${temp_min}°C\n\
-  Feels:  ${feels}°C\n\
-༄ Wind:   ${wind_kmph} km/h\n\
-  Rise:   ${sunrise}\n\
-  Set:    ${sunset}"
+# Using Pango markup for beauty
+tooltip="<span size='13000' foreground='#89dceb'>$icon  <b>${desc^}</b></span>\n"
+tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n"
+tooltip+="<b> Feels:</b>\t${feels}°C\n"
+tooltip+="<b>󰔏 High:</b>\t${temp_max}°C\n"
+tooltip+="<b>󰔏 Low:</b>\t${temp_min}°C\n"
+tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n"
+tooltip+="<b>☁ Clouds:</b>\t${clouds}%\n"
+tooltip+="<b> Humid:</b>\t${humidity}%\n"
+tooltip+="<b>༄ Wind:</b>\t${wind_kmph} km/h\n"
+tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n"
+tooltip+="<b> Rise:</b>\t${sunrise}\n"
+tooltip+="<b> Set:</b>\t${sunset}"
 
 # ---------------- OUTPUT ----------------
 echo "{\"text\":\"$icon ${temp}°C\",\"tooltip\":\"$tooltip\"}"

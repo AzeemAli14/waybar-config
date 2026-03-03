@@ -29,29 +29,35 @@
 - **📊 System Monitoring**: CPU and Memory usage visualized with dynamic "block" icons and `btop` integration on click.
 - **🚀 Omarchy Ecosystem**: Deeply integrated with `omarchy-menu`, updates, and system-wide theme settings.
 
-## 🛠️ Installation
+## 📸 Tooltip Gallery
 
-### 1. Clone the repository
+| Weather | Battery | Network |
+| :---: | :---: | :---: |
+| <img src="assets/weather_tooltip.png" width="250"> | <img src="assets/battery_tooltip.png" width="250"> | <img src="assets/network_tooltip.png" width="250"> |
+| **Bluetooth** | **Audio** | **PulseAudio** |
+| <img src="assets/bluetooth_tooltip.png" width="250"> | <img src="assets/audio_tooltip.png" width="250"> | <img src="assets/pulseaudio_tooltip.png" width="250"> |
+
+## 🛠️ Quick Setup (Automated)
+
+You can install the configuration directly via curl or by running the script locally:
 
 ```bash
-git clone https://github.com/azeemali14/waybar-config.git
-cd waybar-config
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/azeemali14/waybar-config/main/install.sh)"
 ```
 
-### 2. Configure Weather (Optional)
-
-Create a `.env` file in your waybar directory:
-
-```bash
-echo 'WEATHER_API_KEY="your_api_key_here"' > ~/.config/waybar/.env
-echo 'WEATHER_CITY="your_city_name"' >> ~/.config/waybar/.env
-```
-
-### 3. Run the installer
+### Manual Installation
 
 ```bash
 chmod +x install.sh
 ./install.sh
+```
+
+### 1. Configure Weather
+Update your API details in `~/.config/waybar/.env`:
+
+```bash
+WEATHER_API_KEY="your_api_key_here"
+WEATHER_CITY="your_city_name"
 ```
 
 ## 📦 Dependencies

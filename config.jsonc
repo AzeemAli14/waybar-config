@@ -123,9 +123,10 @@
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format-ethernet": "󰌘",
     "format-disconnected": "󰤮",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
-    "tooltip-format-ethernet": "⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
-    "tooltip-format-disconnected": "Disconnected",
+    "tooltip-format": "<span size='13000' foreground='#f5c2e7'>󰤨 <b>Network Status</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Interface:</b>\t{ifname}\n<b>IP Address:</b>\t{ipaddr}\n<b>Gateway:</b>\t{gwaddr}\n<b>Netmask:</b>\t{netmask}",
+    "tooltip-format-wifi": "<span size='13000' foreground='#f5c2e7'>󰤨 <b>WiFi Status</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>SSID:</b>\t{essid}\n<b>Frequency:</b>\t{frequency} GHz\n<b>Signal:</b>\t{signalStrength}%\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Download:</b>\t{bandwidthDownBytes}\n<b>Upload:</b>\t{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "<span size='13000' foreground='#f5c2e7'>󰌘 <b>Ethernet Status</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Interface:</b>\t{ifname}\n<b>IP Address:</b>\t{ipaddr}\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Download:</b>\t{bandwidthDownBytes}\n<b>Upload:</b>\t{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "<span size='13000' foreground='#f38ba8'>󰤮 <b>Disconnected</b></span>",
     "on-click": "omarchy-launch-wifi",
   },
 
@@ -140,8 +141,9 @@
       "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
       "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     },
-    "tooltip-format-discharging": "{capacity}%\nRemaining: {time}",
-    "tooltip-format-charging": "{capacity}%\nUntil full: {time}",
+    "tooltip-format": "<span size='13000' foreground='#a6e3a1'>󰁹 <b>Battery Status</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Capacity:</b>\t{capacity}%\n<b>Health:</b>\t{health}%\n<b>Power:</b>\t{power}W\n<b>Cycles:</b>\t{cycles}\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Remaining:</b>\t{time}",
+    "tooltip-format-charging": "<span size='13000' foreground='#f9e2af'>󰂄 <b>Charging</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Capacity:</b>\t{capacity}%\n<b>Health:</b>\t{health}%\n<b>Power:</b>\t{power}W\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Until Full:</b>\t{time}",
+    "tooltip-format-plugged": "<span size='13000' foreground='#89b4fa'>󰚥 <b>Plugged In</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Capacity:</b>\t{capacity}%\n<b>Health:</b>\t{health}%",
     "states": {
       "warning": 20,
       "critical": 10,
@@ -162,7 +164,7 @@
     "scroll-step": 5,
     "on-click": "omarchy-launch-audio",
     "on-click-right": "pamixer -t",
-    "tooltip-format": "Volume: {volume}%",
+    "tooltip-format": "<span size='13000' foreground='#cba6f7'> <b>Audio Status</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Volume:</b>\t{volume}%\n<b>Device:</b>\t{desc}",
   },
 
   /* ---------------- BLUETOOTH ---------------- */
@@ -171,7 +173,8 @@
     "format": "󰂯",
     "format-disabled": "󰂲",
     "format-connected": "",
-    "tooltip-format": "Connected: {num_connections}",
+    "tooltip-format": "<span size='13000' foreground='#89b4fa'> <b>Bluetooth Status</b></span>\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<b>Status:</b>\t{status}\n<b>Controller:</b>\t{controller_alias}\n <span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "<b>Device:</b>\t{device_alias}",
     "on-click": "omarchy-launch-bluetooth",
   },
 

@@ -18,7 +18,7 @@
 
   "group/system": {
     "orientation": "inherit",
-    "modules": ["cpu", "memory", "custom/separator#blank", "custom/media"],
+    "modules": ["custom/vitals", "custom/separator#blank", "custom/media"],
   },
 
   "group/info": {
@@ -83,17 +83,10 @@
 
   /* ---------------- SYSTEM ---------------- */
 
-  "cpu": {
-    "interval": 3,
-    "format": "{icon}",
-    "format-icons": ["󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"],
-    "on-click": "omarchy-launch-or-focus-tui btop",
-  },
-
-  "memory": {
-    "interval": 3,
-    "format": "{icon}",
-    "format-icons": ["󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"],
+  "custom/vitals": {
+    "exec": "~/.config/waybar/vitals.sh",
+    "interval": 2,
+    "return-type": "json",
     "on-click": "omarchy-launch-or-focus-tui btop",
   },
 

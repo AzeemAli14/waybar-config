@@ -26,7 +26,10 @@
     - **Adaptive Themes**: The player UI automatically changes accents (e.g., Spotify Green) based on the active player.
     - **Rich Tooltips**: Multi-line metadata cards showing Title, Artist, Album, and Playback Status.
     - **Interactive**: Click to Play/Pause, Scroll to Skip/Previous tracks.
-- **📊 System Monitoring**: CPU and Memory usage visualized with dynamic "block" icons and `btop` integration on click.
+- **📊 System Monitoring**: Multi-metric monitoring for CPU, Memory, Swap, and GPU.
+    - **Visual Progress**: Custom-built `━━──` progress bars in a dashboard-style tooltip.
+    - **Perfect Alignment**: Monospace layout ensures all labels, values, and bars align perfectly.
+    - **Interactive**: Launches `btop` on click for deep system analysis.
 - **🚀 Omarchy Ecosystem**: Deeply integrated with `omarchy-menu`, updates, and system-wide theme settings.
 
 ## 📸 Tooltip Gallery
@@ -34,8 +37,8 @@
 | Weather | Battery | Network |
 | :---: | :---: | :---: |
 | <img src="assets/weather_tooltip.png" width="250"> | <img src="assets/battery_tooltip.png" width="250"> | <img src="assets/network_tooltip.png" width="250"> |
-| **Bluetooth** | **Audio** | **PulseAudio** |
-| <img src="assets/bluetooth_tooltip.png" width="250"> | <img src="assets/audio_tooltip.png" width="250"> | <img src="assets/pulseaudio_tooltip.png" width="250"> |
+| **Bluetooth** | **Audio** | **System Vitals** |
+| <img src="assets/bluetooth_tooltip.png" width="250"> | <img src="assets/audio_tooltip.png" width="250"> | <img src="assets/vitals_tooltip.png" width="250"> |
 
 ## 🛠️ Quick Setup (Automated)
 

@@ -28,12 +28,13 @@ ln -sf "$DOTFILES_DIR/config.jsonc" "$CONFIG_DIR/config.jsonc"
 ln -sf "$DOTFILES_DIR/style.css" "$CONFIG_DIR/style.css"
 ln -sf "$DOTFILES_DIR/media.sh" "$CONFIG_DIR/media.sh"
 ln -sf "$DOTFILES_DIR/weather.sh" "$CONFIG_DIR/weather.sh"
+ln -sf "$DOTFILES_DIR/vitals.sh" "$CONFIG_DIR/vitals.sh"
 ln -sf "$DOTFILES_DIR/window.sh" "$CONFIG_DIR/window.sh"
 ln -sf "$DOTFILES_DIR/assets" "$CONFIG_DIR/assets"
 
 # Make scripts executable
 echo "🔑 Setting executable permissions for scripts..."
-chmod +x "$CONFIG_DIR/media.sh" "$CONFIG_DIR/weather.sh" "$CONFIG_DIR/window.sh"
+chmod +x "$CONFIG_DIR/media.sh" "$CONFIG_DIR/weather.sh" "$CONFIG_DIR/vitals.sh" "$CONFIG_DIR/window.sh"
 
 # Setup .env if it doesn't exist
 if [ ! -f "$CONFIG_DIR/.env" ]; then

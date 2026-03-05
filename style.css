@@ -103,13 +103,13 @@ window#waybar {
 
 /* --- INDIVIDUAL MODULES --- */
 
-#clock, #battery, #cpu, #memory, #network, #pulseaudio, 
+#clock, #battery, #custom-vitals, #network, #pulseaudio, 
 #tray, #custom-weather, #custom-update, #bluetooth, #custom-media {
     padding: 0 8px;
     transition: all 0.3s ease;
 }
 
-#clock:hover, #battery:hover, #pulseaudio:hover, #network:hover, #tray:hover, #custom-weather:hover, #custom-media:hover, #cpu:hover, #memory:hover, #bluetooth:hover {
+#clock:hover, #battery:hover, #pulseaudio:hover, #network:hover, #tray:hover, #custom-weather:hover, #custom-media:hover, #custom-vitals:hover, #bluetooth:hover {
     background: alpha(@foreground, 0.05);
     border-radius: 8px;
 }
@@ -131,6 +131,17 @@ window#waybar {
     margin: 4px 6px;
     border-radius: 12px;
     background: alpha(@foreground, 0.03);
+    min-width: 300px;
+}
+
+#custom-media tooltip {
+    padding: 0px; /* Padding moved to label for better control */
+}
+
+#custom-media tooltip label {
+    padding: 15px;
+    font-size: 14px;
+    min-width: 450px;
 }
 
 #custom-media.Playing {
@@ -184,15 +195,35 @@ window#waybar {
 /* --- TOOLTIPS --- */
 
 tooltip {
-    background-color: alpha(@background, 0.85);
-    border: 1px solid alpha(@foreground, 0.1);
-    border-radius: 12px;
+    background-color: alpha(@background, 0.9);
+    border: 2px solid alpha(@foreground, 0.15);
+    border-radius: 10px;
 }
 
 tooltip label {
     color: @foreground;
-    padding: 10px;
-    font-size: 14px;
+    padding: 16px;
+    font-size: 16px;
+    font-family: 'JetBrainsMono Nerd Font', 'JetBrains Mono', monospace;
+}
+
+/* Calendar Widget Specifics */
+calendar {
+    padding: 8px;
+    background: alpha(@foreground, 0.03);
+    border-radius: 12px;
+}
+
+calendar .header {
+    padding: 8px;
+    font-weight: 900;
+}
+
+calendar .today {
+    background: alpha(@foreground, 0.1);
+    color: #f38ba8;
+    border-radius: 8px;
+    font-weight: 900;
 }
 
 /* Simple Separator */

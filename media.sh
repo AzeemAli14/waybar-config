@@ -10,7 +10,11 @@ if [ -z "$player_status" ]; then
 fi
 
 # Get player name
-player_name=$(playerctl metadata --format '{{playerName}}' 2>/dev/null)
+player_name=$(playerctl metadata --format '{{playerName}}' 2>/dev/null | tr '[:upper:]' '[:lower:]')
+player_url=$(playerctl metadata xesam:url 2>/dev/null)
+title=$(playerctl metadata title 2>/dev/null)
+artist=$(playerctl metadata artist 2>/dev/null)
+album=$(playerctl metadata album 2>/dev/null)
 
 # Theme colors
 case "$player_name" in
@@ -19,10 +23,20 @@ case "$player_name" in
         accent_color="#1DB954"
         player_display="Spotify"
         ;;
-    "firefox"|"chromium"|"google-chrome"|"brave")
-        player_icon="󰈹"
-        accent_color="#ff7b00"
-        player_display="Web Browser"
+    "firefox"*|"chromium"*|"google-chrome"*|"brave"*|"microsoft-edge"*|"opera"*|"librewolf"*|"floorp"*|"thorium"*|"vivaldi"*|"browser"*|"chrome"*|"plasma-browser-integration"*)
+        if [[ "${player_url,,}" == *"youtube.com"* ]] || [[ "${player_url,,}" == *"music.youtube.com"* ]] || [[ "${title,,}" == *"youtube"* ]]; then
+            player_icon="󰗃"
+            accent_color="#FF0000"
+            player_display="YouTube"
+        elif [[ "${player_url,,}" == *"soundcloud.com"* ]] || [[ "${title,,}" == *"soundcloud"* ]]; then
+            player_icon="󰓀"
+            accent_color="#ff5500"
+            player_display="SoundCloud"
+        else
+            player_icon=""
+            accent_color="#7858df"
+            player_display="Web Browser"
+        fi
         ;;
     "vlc")
         player_icon="󰕼"
@@ -44,11 +58,6 @@ else
     status_icon="󰏤"
     status_text="Paused"
 fi
-
-# Get metadata
-title=$(playerctl metadata title 2>/dev/null)
-artist=$(playerctl metadata artist 2>/dev/null)
-album=$(playerctl metadata album 2>/dev/null)
 
 # Progress Bar Logic
 position=$(playerctl position 2>/dev/null | cut -d. -f1)
@@ -118,8 +127,8 @@ full_text="$player_icon $status_icon $title_scrolled_esc <span size='smaller' al
 
 # Build Beautiful Tooltip
 tooltip="<span color='$accent_color' weight='bold' size='large'>$player_icon $player_display</span>\n"
-tooltip+="<span size='x-large' font='JetBrainsMono Nerd Font' weight='bold'><tt>$title_tt_scrolled_esc</tt></span>\n"
-tooltip+="<span size='large' alpha='80%'>󰠃 $artist_esc</span>\n"
+tooltip+="<span size='large' font='JetBrainsMono Nerd Font' weight='bold'><tt>$title_tt_scrolled_esc</tt></span>\n"
+tooltip+="<span size='medium' alpha='80%'>󰠃 $artist_esc</span>\n"
 if [ -n "$album_esc" ] && [ "$album_esc" != "$title_esc" ]; then
     tooltip+="<span alpha='60%'>󰀥 $album_esc</span>"
 fi

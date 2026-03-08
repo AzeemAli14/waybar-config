@@ -62,19 +62,42 @@ case "$icon_code" in
 esac
 
 # ---------------- TOOLTIP ----------------
+# Pad values for better alignment
+printf -v feels_p "%3s" "$feels"
+printf -v temp_max_p "%3s" "$temp_max"
+printf -v temp_min_p "%3s" "$temp_min"
+printf -v clouds_p "%3s" "$clouds"
+printf -v humidity_p "%3s" "$humidity"
+printf -v wind_p "%3s" "$wind_kmph"
+
+# Helper for aligned rows
+n=$'\n'
+row() {
+    local icon=$1
+    local label=$2
+    local value=$3
+    # Reduced label padding to 8 chars and icon gap to 2 spaces.
+    local p_label=$(printf "%-9s" "$label")
+    # Removed the extra space after the label for a tighter look.
+    echo "<tt><b>$icon  $p_label</b>$value</tt>"
+}
+
 # Using Pango markup for beauty
-tooltip="<span size='13000' foreground='#89dceb'>$icon  <b>${desc^}</b></span>\n"
-tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n"
-tooltip+="<b> Feels:</b>\t${feels}°C\n"
-tooltip+="<b>󰔏 High:</b>\t${temp_max}°C\n"
-tooltip+="<b>󰔏 Low:</b>\t${temp_min}°C\n"
-tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n"
-tooltip+="<b>☁ Clouds:</b>\t${clouds}%\n"
-tooltip+="<b> Humid:</b>\t${humidity}%\n"
-tooltip+="<b>༄ Wind:</b>\t${wind_kmph} km/h\n"
-tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n"
-tooltip+="<b> Rise:</b>\t${sunrise}\n"
-tooltip+="<b> Set:</b>\t${sunset}"
+tooltip="<span size='13000' foreground='#89dceb'>$icon   <b>${desc^}</b></span>$n"
+tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>$n"
+tooltip+="$(row "" "Feels:" "${feels_p}°C")$n"
+tooltip+="$(row "" "High:"  "${temp_max_p}°C")$n"
+tooltip+="$(row "" "Low:"   "${temp_min_p}°C")$n"
+tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>$n"
+tooltip+="$(row "󰖐" "Clouds:" "${clouds_p}%")$n"
+tooltip+="$(row "󰖖" "Humid:"  "${humidity_p}%")$n"
+tooltip+="$(row "󰖝" "Wind:"   "${wind_p} km/h")$n"
+tooltip+="<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>$n"
+tooltip+="$(row "󰖙" "Rise:"   "${sunrise}")$n"
+tooltip+="$(row "󰖔" "Set:"    "${sunset}")"
 
 # ---------------- OUTPUT ----------------
-echo "{\"text\":\"$icon ${temp}°C\",\"tooltip\":\"$tooltip\"}"
+jq -nc \
+    --arg text "$icon ${temp}°C" \
+    --arg tooltip "$tooltip" \
+    '{ text: $text, tooltip: $tooltip }'

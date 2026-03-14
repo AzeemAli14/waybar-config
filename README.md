@@ -1,90 +1,114 @@
-<h1 align="center">✧ Omarchy Waybar ✧</h1>
+<h1 align="center">
+  <br>
+  <img src="assets/waybar.png" alt="Omarchy Waybar" width="800">
+  <br>
+  ✨ Omarchy Waybar ✨
+</h1>
+
+<p align="center">
+  <i align="center">A high-performance, glassmorphism-inspired Waybar configuration for Hyprland.</i>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintained">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License">
+  <img src="https://img.shields.io/badge/Style-Glassmorphism-purple.svg" alt="Style">
+  <img src="https://img.shields.io/badge/Made%20with-Bash%20%26%20CSS-orange.svg" alt="Made with">
+</p>
 
 <div align="center">
-  <img src="assets/waybar.png" alt="Waybar Banner" width="100%">
-  <br>
-  <i>A sleek, modern, and highly functional Glassmorphism Waybar configuration for Hyprland.</i>
-  <br><br>
-  <a href="#features">Features</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#customization">Customization</a> •
-  <a href="#dependencies">Dependencies</a>
+  <a href="#-features">Features</a> •
+  <a href="#-interactive-installer">Installation</a> •
+  <a href="#-tooltips">Gallery</a> •
+  <a href="#-dependencies">Dependencies</a> •
+  <a href="#-customization">Customization</a>
 </div>
+
+---
+
+## 🎨 Design Philosophy
+
+**Omarchy Waybar** isn't just a status bar; it's a dashboard for your desktop. Built with a focus on **Glassmorphism**, it features:
+- 🧊 **Refined Transparency**: 70% opacity with subtle border glows.
+- 🌈 **Adaptive Accents**: Colors that shift based on your active media (Spotify Green, etc.).
+- 🛠️ **Functional Tooltips**: Every icon hides a mini-dashboard with detailed system insights.
 
 ---
 
 ## ✨ Features
 
-- **🎨 Glassmorphism Aesthetic**: Translucent backgrounds (`alpha 0.7`), rounded corners (`12px`), and a clean, modular layout with refined border accents.
-- **🪟 Active Window**: Dynamic, dual-line window display showing application class and truncated title, with special formatting for apps like Discord.
-- **🕒 Smart Clock**: Detailed tooltips with a full, interactive calendar view and 12-hour format.
-    - **Interactive**: Scroll to change months and click-right to toggle views.
-- **🌡️ Live Weather**: Real-time updates via OpenWeatherMap API with a detailed 8-line forecast tooltip.
-- **🔋 Power Management**: Battery status with progressive charging animations and critical state warnings.
-- **🎵 Advanced Media Player**: Deep `playerctl` integration with:
-    - **Dynamic Icons**: Unique icons for Spotify, Browsers, and VLC.
-    - **Scrolling Titles**: Smooth scrolling text for long titles in both the bar and tooltip.
-    - **Visual Progress**: A beautiful `━━●──` progress bar in the tooltip with live time tracking.
-    - **Adaptive Themes**: The player UI automatically changes accents (e.g., Spotify Green) based on the active player.
-    - **Rich Tooltips**: Multi-line metadata cards showing Title, Artist, Album, and Playback Status.
-    - **Interactive**: Click to Play/Pause, Scroll to Skip/Previous tracks.
-- **📊 System Monitoring**: Multi-metric monitoring for CPU, Memory, Swap, and GPU.
-    - **Visual Progress**: Custom-built `━━──` progress bars in a dashboard-style tooltip.
-    - **Perfect Alignment**: Monospace layout ensures all labels, values, and bars align perfectly.
-    - **Interactive**: Launches `btop` on click for deep system analysis.
-- **🚀 Omarchy Ecosystem**: Deeply integrated with `omarchy-menu`, updates, and system-wide theme settings.
+### 🚀 Modern & Interactive Installer
+Our custom-built `install.sh` provides a terminal-based UI experience:
+- **Auto-Backup**: Your old configs are safely timestamped and archived.
+- **Dependency Guard**: Scans your system for required tools before starting.
+- **Guided Setup**: Interactively configures your Weather API and location.
+- **Visual Feedback**: Beautiful ASCII banners and color-coded progress.
 
-## 📸 Tooltip Gallery
+### 🎵 Advanced Media Control
+Deep integration with `playerctl` featuring:
+- **Smart Labels**: Unique icons for Spotify, VLC, and Web Browsers.
+- **Dynamic Styling**: The bar glows with "Spotify Green" when Playing.
+- **Rich Dashboards**: Tooltips show high-res progress bars (`━━●──`) and full metadata.
 
-| Weather | Battery | Network |
-| :---: | :---: | :---: |
-| <img src="assets/weather_tooltip.png" width="250"> | <img src="assets/battery_tooltip.png" width="250"> | <img src="assets/network_tooltip.png" width="250"> |
-| **Bluetooth** | **Audio** | **System Vitals** |
-| <img src="assets/bluetooth_tooltip.png" width="250"> | <img src="assets/audio_tooltip.png" width="250"> | <img src="assets/vitals_tooltip.png" width="250"> |
-| **PulseAudio** | **Calendar** | |
-| <img src="assets/pulseaudio_tooltip.png" width="250"> | <img src="assets/calendar_tooltip.png" width="250"> | |
+### 🌤️ Live Weather Engine
+- Real-time updates via OpenWeatherMap.
+- **Forecast Dashboard**: Multi-line tooltip showing temperature, conditions, and wind.
+- **One-Click Refresh**: Force update weather data by clicking the module.
 
-## 🛠️ Quick Setup (Automated)
+### 📊 System Vitals Dashboard
+- Monitor **CPU**, **RAM**, **Swap**, and **GPU** in one place.
+- Monospace-aligned progress bars for perfect visual symmetry.
+- Click to launch `btop` for deep-dive analysis.
 
-You can install the configuration directly via curl or by running the script locally:
+---
+
+## 🛠️ Interactive Installer
+
+To install with the full visual experience, run:
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/azeemali14/waybar-config/main/install.sh)"
-```
-
-### Manual Installation
-
-```bash
+git clone https://github.com/yourusername/waybar-config.git ~/.config/waybar
+cd ~/.config/waybar
 chmod +x install.sh
 ./install.sh
 ```
 
-### 1. Configure Weather
-Update your API details in `~/.config/waybar/.env`:
+> **Note:** The installer will prompt you for your **OpenWeatherMap API Key**. If you don't have one, it will guide you on where to get it!
 
-```bash
-WEATHER_API_KEY="your_api_key_here"
-WEATHER_CITY="your_city_name"
-```
+---
+
+## 📸 Tooltips
+
+| **Weather Forecast** | **Battery Health** | **Network Vitals** |
+| :---: | :---: | :---: |
+| <img src="assets/weather_tooltip.png" width="280"> | <img src="assets/battery_tooltip.png" width="280"> | <img src="assets/network_tooltip.png" width="280"> |
+| **Bluetooth Status** | **Audio Dashboard** | **System Vitals** |
+| <img src="assets/bluetooth_tooltip.png" width="280"> | <img src="assets/audio_tooltip.png" width="280"> | <img src="assets/vitals_tooltip.png" width="280"> |
+
+---
 
 ## 📦 Dependencies
 
-To ensure all modules work correctly, please install the following:
+Ensure these are installed for the full experience:
 
-- **Fonts**: `JetBrainsMono Nerd Font`
-- **Core**: `waybar`, `jq`, `hyprctl`, `playerctl`, `curl`, `pamixer`
-- **Recommended**: `btop` (for system monitoring click actions), `network-manager-applet` (for tray)
-- **Ecosystem**: `omarchy-menu`, `omarchy-update` (for full branding integration)
+| Type | Packages |
+| :--- | :--- |
+| **Core** | `waybar`, `jq`, `curl` |
+| **Media** | `playerctl`, `pamixer` |
+| **System** | `btop`, `hyprctl` |
+| **Fonts** | `JetBrainsMono Nerd Font` (Required for Icons) |
+
+---
 
 ## ⚙️ Customization
 
-- **Layout**: Modify `config.jsonc` to rearrange modules in `modules-left`, `modules-center`, or `modules-right`.
-- **Colors**: The configuration imports `@import "../omarchy/current/theme/waybar.css";`. You can override colors manually in `style.css`.
-- **Weather**: Update your city and API key in `~/.config/waybar/.env`.
-- **Window Title**: Adjust `MAX_TITLE_LEN` in `window.sh` to change how much text is displayed.
+- **Layout**: Edit `config.jsonc` to swap modules.
+- **Styling**: Tweak `style.css` for custom colors or border-radius.
+- **Scripts**: All modules are powered by modular scripts (`media.sh`, `weather.sh`, etc.) found in the root directory.
 
 ---
 
 <div align="center">
-  <sub>Built with ❤️ for the Hyprland community by Azeem Ali.</sub>
+  <sub>Crafted with ❤️ by the Omarchy Team</sub><br>
+  <sub><i>"Simplicity is the ultimate sophistication."</i></sub>
 </div>

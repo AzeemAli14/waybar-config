@@ -14,10 +14,11 @@ fi
 
 API="$WEATHER_API_KEY"
 CITY="$WEATHER_CITY"
+CITY_ENCODED=$(echo "$CITY" | jq -sRr @uri)
 
 # Fetch weather (fast timeout so it doesn't hang at boot)
 data=$(curl -s --connect-timeout 3 \
-"https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=metric&appid=${API}")
+"https://api.openweathermap.org/data/2.5/weather?q=${CITY_ENCODED}&units=metric&appid=${API}")
 
 # If API fails → show default
 if [ -z "$data" ] || [ "$(echo "$data" | jq -r '.cod')" != "200" ]; then

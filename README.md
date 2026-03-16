@@ -26,48 +26,54 @@
 
 ---
 
+## 🚀 Quick Install
+
+To install this configuration with a single command, run:
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config/main/install.sh)"
+```
+
+<!-- > **Note:** Replace `yourusername` with your actual GitHub username once you've pushed this repository! -->
+
+---
+
 ## 🎨 Design Philosophy
 
 **Omarchy Waybar** isn't just a status bar; it's a dashboard for your desktop. Built with a focus on **Glassmorphism**, it features:
 - 🧊 **Refined Transparency**: 70% opacity with subtle border glows.
-- 🌈 **Adaptive Accents**: Colors that shift based on your active media (Spotify Green, etc.).
-- 🛠️ **Functional Tooltips**: Every icon hides a mini-dashboard with detailed system insights.
+- 🌈 **Adaptive Accents**: Colors that shift based on your active media.
+- 🛠️ **Functional Tooltips**: Every icon hides a mini-dashboard with detailed insights.
 
 ---
 
 ## ✨ Features
 
-### 🚀 Modern & Interactive Installer
-Our custom-built `install.sh` provides a terminal-based UI experience:
-- **Auto-Backup**: Your old configs are safely timestamped and archived.
-- **Dependency Guard**: Scans your system for required tools before starting.
-- **Guided Setup**: Interactively configures your Weather API and location.
-- **Visual Feedback**: Beautiful ASCII banners and color-coded progress.
+### 🌤️ Pro Weather Engine (NEW)
+- **High/Low Accuracy**: Pulls from 24-hour forecasts to show actual daily ranges.
+- **Precision Data**: 1-decimal "Feels Like" accuracy to see subtle climate shifts.
+- **Offline Mode**: Automatically caches data for view when you're disconnected.
+- **Auto-Sync**: Refreshes every 3 hours or on-click.
+- **Perfect Alignment**: Monospaced, pixel-perfect layout for all weather vitals.
 
 ### 🎵 Advanced Media Control
-Deep integration with `playerctl` featuring:
 - **Smart Labels**: Unique icons for Spotify, VLC, and Web Browsers.
 - **Dynamic Styling**: The bar glows with "Spotify Green" when Playing.
-- **Rich Dashboards**: Tooltips show high-res progress bars (`━━●──`) and full metadata.
+- **Rich Dashboards**: Tooltips show high-res progress bars (`━━●──`).
 
-### 🌤️ Live Weather Engine
-- Real-time updates via OpenWeatherMap.
-- **Forecast Dashboard**: Multi-line tooltip showing temperature, conditions, and wind.
-- **One-Click Refresh**: Force update weather data by clicking the module.
-
-### 📊 System Vitals Dashboard
+### 📊 System Vitals
 - Monitor **CPU**, **RAM**, **Swap**, and **GPU** in one place.
 - Monospace-aligned progress bars for perfect visual symmetry.
 - Click to launch `btop` for deep-dive analysis.
 
 ---
 
-## 🛠️ Interactive Installer
+## 🛠️ Manual Installer
 
 To install with the full visual experience, run:
 
 ```bash
-git clone https://github.com/yourusername/waybar-config.git ~/.config/waybar
+git clone https://github.com/AzeemAli14/waybar-config.git ~/.config/waybar
 cd ~/.config/waybar
 chmod +x install.sh
 ./install.sh
@@ -100,15 +106,7 @@ Ensure these are installed for the full experience:
 
 ---
 
-## ⚙️ Customization
-
-- **Layout**: Edit `config.jsonc` to swap modules.
-- **Styling**: Tweak `style.css` for custom colors or border-radius.
-- **Scripts**: All modules are powered by modular scripts (`media.sh`, `weather.sh`, etc.) found in the root directory.
-
----
-
 <div align="center">
-  <sub>Crafted with ❤️ by the Omarchy Team</sub><br>
+  <!-- <sub>Crafted with ❤️ by the Omarchy Team</sub><br> -->
   <sub><i>"Simplicity is the ultimate sophistication."</i></sub>
 </div>

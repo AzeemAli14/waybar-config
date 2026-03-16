@@ -198,7 +198,7 @@
 
   "custom/weather": {
     "exec": "~/.config/waybar/weather.sh",
-    "interval": 600,
+    "interval": 3600,
     "return-type": "json",
     "signal": 9,
     "on-click": "pkill -RTMIN+9 waybar",

@@ -12,8 +12,13 @@ vitals_color="#cba6f7" # Mauve
 cpu_color="#89b4fa"    # Blue
 mem_color="#a6e3a1"    # Green
 gpu_color="#fab387"    # Peach
+net_color="#f9e2af"    # Yellow
 swap_color="#f5c2e7"   # Pink
 border_color="#6c7086" # Surface1
+
+# Icons for Network
+down_icon="󰇚"
+up_icon="󰕒"
 
 # Function to generate a progress bar
 get_bar() {
@@ -58,6 +63,54 @@ swap_bar=$(get_bar "$swap_usage" "$swap_color")
 gpu_usage="N/A"
 gpu_bar=$(get_bar 0 "$gpu_color")
 
+# --- NETWORK CALCULATION ---
+net_stats_file="/tmp/vitals_net_stats"
+read_net_data() {
+    awk 'NR > 2 && $1 != "lo:" {rx += $2; tx += $10} END {printf "%.0f %.0f", rx, tx}' /proc/net/dev
+}
+
+current_time=$(date +%s%N)
+read rx_curr tx_curr <<< $(read_net_data)
+
+if [ -f "$net_stats_file" ]; then
+    read rx_prev tx_prev prev_time < "$net_stats_file"
+    time_diff_ns=$(( current_time - prev_time ))
+    time_diff=$(awk "BEGIN {print $time_diff_ns / 1000000000}")
+    
+    if (( $(awk "BEGIN {print ($time_diff > 0)}") )); then
+        rx_speed=$(awk "BEGIN {print ($rx_curr - rx_prev) / $time_diff}")
+        tx_speed=$(awk "BEGIN {print ($tx_curr - tx_prev) / $time_diff}")
+    else
+        rx_speed=0
+        tx_speed=0
+    fi
+else
+    rx_speed=0
+    tx_speed=0
+fi
+echo "$rx_curr $tx_curr $current_time" > "$net_stats_file"
+
+# Format speed helper
+format_speed() {
+    local bytes=$1
+    if (( $(awk "BEGIN {print ($bytes < 1024)}") )); then
+        printf "%.1f B/s" "$bytes"
+    elif (( $(awk "BEGIN {print ($bytes < 1048576)}") )); then
+        printf "%.1f KB/s" "$(awk "BEGIN {print $bytes / 1024}")"
+    else
+        printf "%.1f MB/s" "$(awk "BEGIN {print $bytes / 1048576}")"
+    fi
+}
+
+rx_fmt=$(format_speed "$rx_speed")
+tx_fmt=$(format_speed "$tx_speed")
+
+# Network bars (scaled to 100 Mbps = ~12.5 MB/s)
+rx_percent=$(awk "BEGIN {p = ($rx_speed / 12500000) * 100; print (p > 100 ? 100 : p)}")
+tx_percent=$(awk "BEGIN {p = ($tx_speed / 12500000) * 100; print (p > 100 ? 100 : p)}")
+rx_bar=$(get_bar "${rx_percent%.*}" "$net_color")
+tx_bar=$(get_bar "${tx_percent%.*}" "$net_color")
+
 # --- FIXED WIDTH LOGIC ---
 # Pad to 2 characters so "9%" becomes " 9%" and aligns with "10%"
 cpu_pad=$(printf "%2d" "$cpu_usage")
@@ -90,7 +143,10 @@ tooltip+="<span foreground='$border_color'>━━━━━━━━━━━━�
 tooltip+=$(row "CPU Usage" "$cpu_usage%" "$cpu_bar" "$cpu_color" "$cpu_icon")$n
 tooltip+=$(row "Memory Used" "$mem_used/$mem_total MiB ($mem_usage%)" "$mem_bar" "$mem_color" "$mem_icon")$n
 tooltip+=$(row "Swap Used" "$swap_used/$swap_total MiB ($swap_usage%)" "$swap_bar" "$swap_color" "$swap_icon")$n
-tooltip+=$(row "GPU Usage" "$gpu_usage" "$gpu_bar" "$gpu_color" "$gpu_icon")
+tooltip+=$(row "GPU Usage" "$gpu_usage" "$gpu_bar" "$gpu_color" "$gpu_icon")$n
+tooltip+="<span foreground='$border_color'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>$n"
+tooltip+=$(row "Download" "$rx_fmt" "$rx_bar" "$net_color" "$down_icon")$n
+tooltip+=$(row "Upload" "$tx_fmt" "$tx_bar" "$net_color" "$up_icon")
 
 # Output JSON for Waybar using jq
 jq -nc \

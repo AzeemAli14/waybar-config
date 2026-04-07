@@ -31,7 +31,6 @@ ICON_INFO="${BLUE}ℹ${RESET}"
 ICON_ROCKET="${PINK}🚀${RESET}"
 ICON_PKG="${PURPLE}📦${RESET}"
 ICON_LINK="${CYAN}🔗${RESET}"
-ICON_KEY="${YELLOW}🔑${RESET}"
 ICON_GEAR="${GRAY}⚙${RESET}"
 
 # --- CONFIGURATION ---
@@ -123,12 +122,9 @@ print_success "Permissions set."
 # 5. WEATHER CONFIG
 ENV_FILE="$CONFIG_DIR/.env"
 if [ ! -f "$ENV_FILE" ] || [[ $1 == "--reconfig" ]]; then
-    print_step "Configuring Weather API..."
-    echo -e "   Get API Key: ${CYAN}https://openweathermap.org/api${RESET}"
-    read -p "   Enter API Key: " KEY
+    print_step "Configuring Weather Location..."
     read -p "   Enter City (e.g., London,UK): " CITY
-    echo "WEATHER_API_KEY=\"$KEY\"" > "$ENV_FILE"
-    echo "WEATHER_CITY=\"$CITY\"" >> "$ENV_FILE"
+    echo "WEATHER_CITY=\"$CITY\"" > "$ENV_FILE"
     print_success "Config saved to .env"
 fi
 

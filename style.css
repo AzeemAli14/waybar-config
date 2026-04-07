@@ -84,9 +84,26 @@ window#waybar {
 }
 
 #custom-active_window {
-    color: alpha(@foreground, 0.8);
-    padding: 0 10px;
-    font-weight: 500;
+    background: alpha(@foreground, 0.08);
+    color: @foreground;
+    border-radius: 20px;
+    margin: 4px 6px;
+    padding: 0 16px;
+    font-weight: 600;
+    font-size: 13px;
+    border: 1px solid alpha(@foreground, 0.05);
+    transition: all 0.3s cubic-bezier(.55,-0.04,.3,1.44);
+}
+
+#custom-active_window.empty {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+#custom-active_window:hover {
+    background: alpha(@foreground, 0.12);
+    border: 1px solid alpha(@foreground, 0.1);
 }
 
 /* --- GROUP STYLING: Glassy Containers --- */
@@ -104,14 +121,27 @@ window#waybar {
 /* --- INDIVIDUAL MODULES --- */
 
 #clock, #battery, #custom-vitals, #network, #pulseaudio, 
-#tray, #custom-weather, #custom-update, #bluetooth, #custom-media {
+#tray, #custom-weather, #custom-update, #bluetooth, #custom-media, #custom-expand-icon {
     padding: 0 8px;
     transition: all 0.3s ease;
 }
 
-#clock:hover, #battery:hover, #pulseaudio:hover, #network:hover, #tray:hover, #custom-weather:hover, #custom-media:hover, #custom-vitals:hover, #bluetooth:hover {
+#clock:hover, #battery:hover, #pulseaudio:hover, #network:hover, #tray:hover, #custom-weather:hover, #custom-media:hover, #custom-vitals:hover, #bluetooth:hover, #custom-expand-icon:hover {
     background: alpha(@foreground, 0.05);
     border-radius: 8px;
+}
+
+#custom-expand-icon {
+    color: alpha(@foreground, 0.6);
+    font-size: 14px;
+}
+
+#group-tray-expander {
+    background: alpha(@foreground, 0.05);
+    border-radius: 12px;
+    margin: 0 4px;
+    padding: 2px 4px;
+    border: 1px solid alpha(@foreground, 0.03);
 }
 
 /* Color Accents */

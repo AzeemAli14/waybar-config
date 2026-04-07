@@ -49,11 +49,12 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 
 ## ✨ Features
 
-### 🌤️ Pro Weather Engine (NEW)
+### 🌤️ Pro Weather Engine (Enhanced)
+- **wttr.in Integration**: Switched to `wttr.in` for superior real-time accuracy (no API key required!).
 - **High/Low Accuracy**: Pulls from 24-hour forecasts to show actual daily ranges.
 - **Precision Data**: 1-decimal "Feels Like" accuracy to see subtle climate shifts.
 - **Offline Mode**: Automatically caches data for view when you're disconnected.
-- **Auto-Sync**: Refreshes every 3 hours or on-click.
+- **Auto-Sync**: Refreshes every hour or on-click.
 - **Perfect Alignment**: Monospaced, pixel-perfect layout for all weather vitals.
 
 ### 🎵 Advanced Media Control
@@ -61,10 +62,15 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 - **Dynamic Styling**: The bar glows with "Spotify Green" when Playing.
 - **Rich Dashboards**: Tooltips show high-res progress bars (`━━●──`).
 
-### 📊 System Vitals
+### 📊 System Vitals & Network
 - Monitor **CPU**, **RAM**, **Swap**, and **GPU** in one place.
+- **Real-time Network**: Download and Upload speeds with progress bars integrated into the vitals tooltip.
 - Monospace-aligned progress bars for perfect visual symmetry.
 - Click to launch `btop` for deep-dive analysis.
+
+### 🪟 Smart Window Titles
+- **Concise Titles**: Automatically extracts filenames from long strings (especially optimized for **VS Code**).
+- **Clean Interface**: Shows the App Name in the bar while keeping the filename in the tooltip.
 
 ---
 
@@ -79,7 +85,7 @@ chmod +x install.sh
 ./install.sh
 ```
 
-> **Note:** The installer will prompt you for your **OpenWeatherMap API Key**. If you don't have one, it will guide you on where to get it!
+> **Note:** The installer will prompt you for your **Location (City)** to configure the weather module.
 
 ---
 

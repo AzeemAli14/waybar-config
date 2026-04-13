@@ -23,12 +23,16 @@ case "$player_name" in
         accent_color="#1DB954"
         player_display="Spotify"
         ;;
-    "firefox"*|"chromium"*|"google-chrome"*|"brave"*|"microsoft-edge"*|"opera"*|"librewolf"*|"floorp"*|"thorium"*|"vivaldi"*|"browser"*|"chrome"*|"plasma-browser-integration"*)
-        if [[ "${player_url,,}" == *"youtube.com"* ]] || [[ "${player_url,,}" == *"music.youtube.com"* ]] || [[ "${title,,}" == *"youtube"* ]]; then
+    "firefox"*|"chromium"*|"google-chrome"*|"brave"*|"microsoft-edge"*|"opera"*|"librewolf"*|"floorp"*|"thorium"*|"vivaldi"*|"browser"*|"chrome"*|"plasma-browser-integration"*|"web"*|"zen"*|"waterfox"*|"mullvad"*|"epiphany"*|"falkon"*|"midori"*)
+        if [[ "${player_name}" == *"youtube"* ]] || [[ "${player_url,,}" == *"youtube.com"* ]] || [[ "${player_url,,}" == *"music.youtube.com"* ]] || [[ "${title,,}" == *"youtube"* ]] || [[ "${artist,,}" == *"youtube"* ]] || [[ "${album,,}" == *"youtube"* ]]; then
             player_icon="󰗃"
             accent_color="#FF0000"
             player_display="YouTube"
-        elif [[ "${player_url,,}" == *"soundcloud.com"* ]] || [[ "${title,,}" == *"soundcloud"* ]]; then
+        elif [[ "${player_name}" == *"spotify"* ]] || [[ "${player_url,,}" == *"spotify.com"* ]] || [[ "${title,,}" == *"spotify"* ]] || [[ "${artist,,}" == *"spotify"* ]] || [[ "${album,,}" == *"spotify"* ]]; then
+            player_icon="󰓇"
+            accent_color="#1DB954"
+            player_display="Spotify"
+        elif [[ "${player_name}" == *"soundcloud"* ]] || [[ "${player_url,,}" == *"soundcloud.com"* ]] || [[ "${title,,}" == *"soundcloud"* ]] || [[ "${artist,,}" == *"soundcloud"* ]] || [[ "${album,,}" == *"soundcloud"* ]]; then
             player_icon="󰓀"
             accent_color="#ff5500"
             player_display="SoundCloud"
@@ -37,6 +41,16 @@ case "$player_name" in
             accent_color="#7858df"
             player_display="Web Browser"
         fi
+        ;;
+    *"youtube"*|*"yt-music"*|*"youtube-music"*)
+        player_icon="󰗃"
+        accent_color="#FF0000"
+        player_display="YouTube"
+        ;;
+    *"soundcloud"*)
+        player_icon="󰓀"
+        accent_color="#ff5500"
+        player_display="SoundCloud"
         ;;
     "vlc")
         player_icon="󰕼"

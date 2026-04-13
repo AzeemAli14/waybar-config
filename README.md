@@ -44,6 +44,8 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 - 🧊 **Refined Transparency**: 70% opacity with subtle border glows.
 - 🌈 **Adaptive Accents**: Colors that shift based on your active media.
 - 🛠️ **Functional Tooltips**: Every icon hides a mini-dashboard with detailed insights.
+- 📥 **Collapsible Tray**: A sleek, animated drawer for system tray icons.
+- 💊 **Pill Styling**: Modern, pill-shaped active window indicators for a cleaner look.
 
 ---
 
@@ -58,12 +60,13 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 - **Perfect Alignment**: Monospaced, pixel-perfect layout for all weather vitals.
 
 ### 🎵 Advanced Media Control
-- **Smart Labels**: Unique icons for Spotify, VLC, and Web Browsers.
-- **Dynamic Styling**: The bar glows with "Spotify Green" when Playing.
+- **Smart Labels**: Unique icons for Spotify, VLC, and expanded Web Browser support (Zen, Waterfox, Mullvad, Epiphany, and more).
+- **Dynamic Styling**: The bar glows with "Spotify Green" or "YouTube Red" based on active media.
 - **Rich Dashboards**: Tooltips show high-res progress bars (`━━●──`).
 
 ### 📊 System Vitals & Network
-- Monitor **CPU**, **RAM**, **Swap**, and **GPU** in one place.
+- Monitor **CPU**, **RAM**, **Swap**, and **NVIDIA GPU** in one place.
+- **GPU Monitoring**: Real-time NVIDIA utilization tracking (requires `nvidia-smi`).
 - **Real-time Network**: Download and Upload speeds with progress bars integrated into the vitals tooltip.
 - Monospace-aligned progress bars for perfect visual symmetry.
 - Click to launch `btop` for deep-dive analysis.
@@ -107,7 +110,7 @@ Ensure these are installed for the full experience:
 | :--- | :--- |
 | **Core** | `waybar`, `jq`, `curl` |
 | **Media** | `playerctl`, `pamixer` |
-| **System** | `btop`, `hyprctl` |
+| **System** | `btop`, `hyprctl`, `nvidia-smi` (optional) |
 | **Fonts** | `JetBrainsMono Nerd Font` (Required for Icons) |
 
 ---

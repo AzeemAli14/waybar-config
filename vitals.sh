@@ -59,9 +59,17 @@ else
 fi
 swap_bar=$(get_bar "$swap_usage" "$swap_color")
 
-# Get GPU usage (Intel fallback)
-gpu_usage="N/A"
-gpu_bar=$(get_bar 0 "$gpu_color")
+# Get GPU usage (NVIDIA/Intel fallback)
+if command -v nvidia-smi >/dev/null 2>&1; then
+    gpu_usage=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | head -n 1)
+    [ -z "$gpu_usage" ] && gpu_usage=0
+    gpu_bar=$(get_bar "$gpu_usage" "$gpu_color")
+    gpu_usage_display="${gpu_usage}%"
+else
+    gpu_usage=0
+    gpu_usage_display="N/A"
+    gpu_bar=$(get_bar 0 "$gpu_color")
+fi
 
 # --- NETWORK CALCULATION ---
 net_stats_file="/tmp/vitals_net_stats"
@@ -115,9 +123,10 @@ tx_bar=$(get_bar "${tx_percent%.*}" "$net_color")
 # Pad to 2 characters so "9%" becomes " 9%" and aligns with "10%"
 cpu_pad=$(printf "%2d" "$cpu_usage")
 mem_pad=$(printf "%2d" "$mem_usage")
+gpu_pad=$(printf "%2d" "$gpu_usage")
 
 # Text for bar
-bar_text="<span color='$cpu_color'>$cpu_icon</span> $cpu_pad% <span color='$mem_color'>$mem_icon</span> $mem_pad%"
+bar_text="<span color='$cpu_color'>$cpu_icon</span> $cpu_pad% <span color='$mem_color'>$mem_icon</span> $mem_pad% <span color='$gpu_color'>$gpu_icon</span> $gpu_pad%"
 
 # Build Beautiful Tooltip with fixed-width alignment
 n=$'\n'
@@ -143,10 +152,10 @@ tooltip+="<span foreground='$border_color'>━━━━━━━━━━━━�
 tooltip+=$(row "CPU Usage" "$cpu_usage%" "$cpu_bar" "$cpu_color" "$cpu_icon")$n
 tooltip+=$(row "Memory Used" "$mem_used/$mem_total MiB ($mem_usage%)" "$mem_bar" "$mem_color" "$mem_icon")$n
 tooltip+=$(row "Swap Used" "$swap_used/$swap_total MiB ($swap_usage%)" "$swap_bar" "$swap_color" "$swap_icon")$n
-tooltip+=$(row "GPU Usage" "$gpu_usage" "$gpu_bar" "$gpu_color" "$gpu_icon")$n
-tooltip+="<span foreground='$border_color'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>$n"
-tooltip+=$(row "Download" "$rx_fmt" "$rx_bar" "$net_color" "$down_icon")$n
-tooltip+=$(row "Upload" "$tx_fmt" "$tx_bar" "$net_color" "$up_icon")
+tooltip+=$(row "GPU Usage" "$gpu_usage_display" "$gpu_bar" "$gpu_color" "$gpu_icon")
+# tooltip+="<span foreground='$border_color'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>$n"
+# tooltip+=$(row "Download" "$rx_fmt" "$rx_bar" "$net_color" "$down_icon")$n
+# tooltip+=$(row "Upload" "$tx_fmt" "$tx_bar" "$net_color" "$up_icon")
 
 # Output JSON for Waybar using jq
 jq -nc \

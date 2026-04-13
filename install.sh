@@ -34,7 +34,7 @@ ICON_LINK="${CYAN}🔗${RESET}"
 ICON_GEAR="${GRAY}⚙${RESET}"
 
 # --- CONFIGURATION ---
-REPO_URL="https://github.com/yourusername/waybar-config.git" # TODO: Update this URL
+REPO_URL="https://github.com/AzeemAli14/waybar-config.git"
 CONFIG_DIR="$HOME/.config/waybar"
 BACKUP_DIR="$CONFIG_DIR/backups/$(date +%Y%m%d_%H%M%S)"
 
@@ -96,6 +96,18 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 print_step "Checking System Dependencies..."
 DEPS=("waybar" "jq" "curl" "playerctl" "pamixer" "btop")
 for dep in "${DEPS[@]}"; do check_dependency "$dep"; done
+
+# Optional Dependencies
+echo -e "\n   ${ICON_GEAR} ${DIM}Checking optional dependencies...${RESET}"
+check_dependency "nvidia-smi" || echo -e "      ${DIM}(Optional: Required for NVIDIA GPU monitoring)${RESET}"
+
+# Check for JetBrainsMono Nerd Font
+if fc-list :family | grep -iq "JetBrainsMono Nerd Font"; then
+    print_success "Found: JetBrainsMono Nerd Font"
+else
+    echo -e "   ${ICON_WARN} Missing: ${RED}JetBrainsMono Nerd Font${RESET}"
+    echo -e "      ${DIM}(Required for icons to display correctly)${RESET}"
+fi
 
 echo ""
 

@@ -66,9 +66,54 @@ if command -v nvidia-smi >/dev/null 2>&1; then
     gpu_bar=$(get_bar "$gpu_usage" "$gpu_color")
     gpu_usage_display="${gpu_usage}%"
 else
-    gpu_usage=0
-    gpu_usage_display="N/A"
-    gpu_bar=$(get_bar 0 "$gpu_color")
+    # Fallback for Intel GPU
+    intel_gpu_path=""
+    if [ -d /sys/class/drm/card1/gt/gt0 ]; then
+        intel_gpu_path="/sys/class/drm/card1/gt/gt0"
+    elif [ -d /sys/class/drm/card0/gt/gt0 ]; then
+        intel_gpu_path="/sys/class/drm/card0/gt/gt0"
+    elif [ -d /sys/class/drm/card1/device/gt/gt0 ]; then
+        intel_gpu_path="/sys/class/drm/card1/device/gt/gt0"
+    elif [ -d /sys/class/drm/card0/device/gt/gt0 ]; then
+        intel_gpu_path="/sys/class/drm/card0/device/gt/gt0"
+    fi
+
+    if [ -n "$intel_gpu_path" ]; then
+        # Use a small average to prevent constant drops to 0%
+        # Sample 3 times with small delays
+        s1=$(cat "/sys/class/drm/card1/gt_act_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_act_freq_mhz" 2>/dev/null)
+        sleep 0.05
+        s2=$(cat "/sys/class/drm/card1/gt_act_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_act_freq_mhz" 2>/dev/null)
+        sleep 0.05
+        s3=$(cat "/sys/class/drm/card1/gt_act_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_act_freq_mhz" 2>/dev/null)
+        
+        # Calculate max of samples to capture bursts, or average. Let's try max for better responsiveness to activity.
+        curr=$s1
+        (( s2 > curr )) && curr=$s2
+        (( s3 > curr )) && curr=$s3
+
+        max=$(cat "/sys/class/drm/card1/gt_max_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_max_freq_mhz" 2>/dev/null)
+        min=$(cat "/sys/class/drm/card1/gt_min_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_min_freq_mhz" 2>/dev/null)
+        
+        if [ -n "$curr" ] && [ -n "$max" ] && [ -n "$min" ] && [ "$max" -gt "$min" ]; then
+            gpu_usage=$(( 100 * (curr - min) / (max - min) ))
+            # Clamp to 0-100
+            (( gpu_usage < 0 )) && gpu_usage=0
+            (( gpu_usage > 100 )) && gpu_usage=100
+            gpu_usage_display="${gpu_usage}%"
+        else
+            gpu_usage=0
+            gpu_usage_display="0%"
+        fi
+    elif [ -f /sys/class/drm/card0/device/gpu_busy_percent ]; then
+        # AMD GPU fallback
+        gpu_usage=$(cat /sys/class/drm/card0/device/gpu_busy_percent)
+        gpu_usage_display="${gpu_usage}%"
+    else
+        gpu_usage=0
+        gpu_usage_display="N/A"
+    fi
+    gpu_bar=$(get_bar "$gpu_usage" "$gpu_color")
 fi
 
 # --- NETWORK CALCULATION ---

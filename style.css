@@ -224,6 +224,21 @@ window#waybar {
 
 /* --- TOOLTIPS --- */
 
+#custom-omarchy tooltip {
+    background: alpha(@background, 0.8);
+    background-image: url("assets/icon.png");
+    background-repeat: no-repeat;
+    background-position: center 20px;
+    background-size: 80px;
+    border: 1px solid alpha(#cba6f7, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 0 15px 2px alpha(#cba6f7, 0.3);
+}
+
+#custom-omarchy tooltip label {
+    padding: 110px 20px 20px 20px;
+}
+
 tooltip {
     background-color: alpha(@background, 0.9);
     border: 2px solid alpha(@foreground, 0.15);

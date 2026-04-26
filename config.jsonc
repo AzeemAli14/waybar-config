@@ -51,7 +51,7 @@
     "format": "<span font='omarchy'>\ue900</span>",
     "on-click": "omarchy-menu",
     "on-click-right": "xdg-terminal-exec",
-    "tooltip-format": "Omarchy Menu\nSuper + Alt + Space",
+    "tooltip-format": "<span size='18000' weight='bold' foreground='#cba6f7'>OMARCHY</span> <span size='18000' weight='light' foreground='#f5e0dc'>OS</span>\n<span foreground='#45475a'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>\n<span foreground='#a6e3a1'>󱐋</span> <span weight='bold'>System State:</span>  <span foreground='#a6e3a1'>Optimal</span>\n<span foreground='#89b4fa'>󰀻</span> <span weight='bold'>Interface:</span>     <span foreground='#89b4fa'>Dashboard Ready</span>\n<span foreground='#f9e2af'>󰘳</span> <span weight='bold'>Master Key:</span>    <span foreground='#fab387'>󰘳 + 󰘶 + Space</span>\n<span foreground='#45475a'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>\n<span size='10500' alpha='70%'><i>\"Simplicity is the ultimate sophistication.\"</i></span>",
   },
 
   "custom/active_window": {
@@ -212,11 +212,11 @@
     "tooltip": false,
   },
 
-  "custom/separator#dot": {
-    "format": "",
-    "interval": "once",
-    "tooltip": false,
-  },
+  // "custom/separator#dot": {
+  //   "format": "",
+  //   "interval": "once",
+  //   "tooltip": false,
+  // },
   "group/tray-expander": {
     "orientation": "inherit",
     "drawer": {

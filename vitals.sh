@@ -59,62 +59,57 @@ else
 fi
 swap_bar=$(get_bar "$swap_usage" "$swap_color")
 
-# Get GPU usage (NVIDIA/Intel fallback)
+# Get GPU usage (Hybrid support: NVIDIA + Intel/AMD)
+gpu_usage=0
+gpu_usage_display="N/A"
+
+# 1. Try NVIDIA
 if command -v nvidia-smi >/dev/null 2>&1; then
-    gpu_usage=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | head -n 1)
-    [ -z "$gpu_usage" ] && gpu_usage=0
-    gpu_bar=$(get_bar "$gpu_usage" "$gpu_color")
-    gpu_usage_display="${gpu_usage}%"
-else
-    # Fallback for Intel GPU
-    intel_gpu_path=""
-    if [ -d /sys/class/drm/card1/gt/gt0 ]; then
-        intel_gpu_path="/sys/class/drm/card1/gt/gt0"
-    elif [ -d /sys/class/drm/card0/gt/gt0 ]; then
-        intel_gpu_path="/sys/class/drm/card0/gt/gt0"
-    elif [ -d /sys/class/drm/card1/device/gt/gt0 ]; then
-        intel_gpu_path="/sys/class/drm/card1/device/gt/gt0"
-    elif [ -d /sys/class/drm/card0/device/gt/gt0 ]; then
-        intel_gpu_path="/sys/class/drm/card0/device/gt/gt0"
+    nv_usage=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | head -n 1 2>/dev/null)
+    if [[ -n "$nv_usage" && "$nv_usage" =~ ^[0-9]+$ ]]; then
+        gpu_usage=$nv_usage
+        gpu_usage_display="${nv_usage}%"
     fi
-
-    if [ -n "$intel_gpu_path" ]; then
-        # Use a small average to prevent constant drops to 0%
-        # Sample 3 times with small delays
-        s1=$(cat "/sys/class/drm/card1/gt_act_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_act_freq_mhz" 2>/dev/null)
-        sleep 0.05
-        s2=$(cat "/sys/class/drm/card1/gt_act_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_act_freq_mhz" 2>/dev/null)
-        sleep 0.05
-        s3=$(cat "/sys/class/drm/card1/gt_act_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_act_freq_mhz" 2>/dev/null)
-        
-        # Calculate max of samples to capture bursts, or average. Let's try max for better responsiveness to activity.
-        curr=$s1
-        (( s2 > curr )) && curr=$s2
-        (( s3 > curr )) && curr=$s3
-
-        max=$(cat "/sys/class/drm/card1/gt_max_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_max_freq_mhz" 2>/dev/null)
-        min=$(cat "/sys/class/drm/card1/gt_min_freq_mhz" 2>/dev/null || cat "$intel_gpu_path/rps_min_freq_mhz" 2>/dev/null)
-        
-        if [ -n "$curr" ] && [ -n "$max" ] && [ -n "$min" ] && [ "$max" -gt "$min" ]; then
-            gpu_usage=$(( 100 * (curr - min) / (max - min) ))
-            # Clamp to 0-100
-            (( gpu_usage < 0 )) && gpu_usage=0
-            (( gpu_usage > 100 )) && gpu_usage=100
-            gpu_usage_display="${gpu_usage}%"
-        else
-            gpu_usage=0
-            gpu_usage_display="0%"
-        fi
-    elif [ -f /sys/class/drm/card0/device/gpu_busy_percent ]; then
-        # AMD GPU fallback
-        gpu_usage=$(cat /sys/class/drm/card0/device/gpu_busy_percent)
-        gpu_usage_display="${gpu_usage}%"
-    else
-        gpu_usage=0
-        gpu_usage_display="N/A"
-    fi
-    gpu_bar=$(get_bar "$gpu_usage" "$gpu_color")
 fi
+
+# 2. Try Intel/AMD via sysfs
+for card in /sys/class/drm/card*; do
+    # Generic busy percent (AMD)
+    if [ -f "$card/device/gpu_busy_percent" ]; then
+        sys_usage=$(cat "$card/device/gpu_busy_percent" 2>/dev/null)
+        if [[ -n "$sys_usage" && "$sys_usage" =~ ^[0-9]+$ ]]; then
+            if [ "$sys_usage" -gt "$gpu_usage" ]; then
+                gpu_usage=$sys_usage
+                gpu_usage_display="${sys_usage}%"
+            fi
+        fi
+    fi
+
+    # Intel frequency-based fallback
+    intel_path=""
+    if [ -d "$card/gt/gt0" ]; then
+        intel_path="$card/gt/gt0"
+    elif [ -d "$card/device/gt/gt0" ]; then
+        intel_path="$card/device/gt/gt0"
+    fi
+
+    if [ -n "$intel_path" ]; then
+        curr=$(cat "$intel_path/rps_act_freq_mhz" 2>/dev/null || cat "${intel_path%/gt/gt0}/gt_act_freq_mhz" 2>/dev/null || cat "$intel_path/rps_cur_freq_mhz" 2>/dev/null)
+        max=$(cat "$intel_path/rps_max_freq_mhz" 2>/dev/null || cat "${intel_path%/gt/gt0}/gt_max_freq_mhz" 2>/dev/null)
+        min=$(cat "$intel_path/rps_min_freq_mhz" 2>/dev/null || cat "${intel_path%/gt/gt0}/gt_min_freq_mhz" 2>/dev/null)
+        
+        if [[ -n "$curr" && -n "$max" && -n "$min" && "$max" -gt "$min" ]]; then
+            i_usage=$(( 100 * (curr - min) / (max - min) ))
+            (( i_usage < 0 )) && i_usage=0
+            (( i_usage > 100 )) && i_usage=100
+            if [ "$i_usage" -gt "$gpu_usage" ]; then
+                gpu_usage=$i_usage
+                gpu_usage_display="${i_usage}%"
+            fi
+        fi
+    fi
+done
+gpu_bar=$(get_bar "$gpu_usage" "$gpu_color")
 
 # --- NETWORK CALCULATION ---
 net_stats_file="/tmp/vitals_net_stats"

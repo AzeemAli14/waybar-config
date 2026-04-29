@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # ==============================================================================
 #  WAYBAR CONFIGURATION INSTALLER
@@ -80,7 +81,9 @@ if [ ! -d "$CONFIG_DIR/.git" ]; then
     if command -v git &> /dev/null; then
         if [ -d "$CONFIG_DIR" ]; then
             mkdir -p "$BACKUP_DIR"
-            mv "$CONFIG_DIR"/* "$BACKUP_DIR/" 2>/dev/null
+            echo -e "   ${ICON_INFO} Backing up existing config to ${DIM}$BACKUP_DIR${RESET}"
+            # Use a more robust move to avoid "no such file" errors
+            find "$CONFIG_DIR" -maxdepth 1 -not -name "$(basename "$BACKUP_DIR")" -not -path "$CONFIG_DIR" -exec mv {} "$BACKUP_DIR/" \; 2>/dev/null || true
         fi
         git clone "$REPO_URL" "$CONFIG_DIR"
         cd "$CONFIG_DIR" || exit
@@ -94,8 +97,19 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 2. DEPENDENCY CHECK
 print_step "Checking System Dependencies..."
-DEPS=("waybar" "jq" "curl" "playerctl" "pamixer" "btop")
-for dep in "${DEPS[@]}"; do check_dependency "$dep"; done
+DEPS=("waybar" "jq" "curl" "playerctl" "pamixer" "btop" "awk" "top" "free")
+MISSING_DEPS=()
+for dep in "${DEPS[@]}"; do
+    if ! check_dependency "$dep"; then
+        MISSING_DEPS+=("$dep")
+    fi
+done
+
+if [ ${#MISSING_DEPS[@]} -ne 0 ]; then
+    echo -e "\n   ${ICON_ERROR} ${RED}Missing critical dependencies: ${MISSING_DEPS[*]}${RESET}"
+    echo -e "   Please install them using your package manager."
+    exit 1
+fi
 
 # Optional Dependencies
 echo -e "\n   ${ICON_GEAR} ${DIM}Checking optional dependencies...${RESET}"
@@ -117,6 +131,13 @@ print_step "Installing Configuration Files..."
 link_file() {
     local src="$1"
     local dest="$2"
+    
+    # If source and destination are the same, just ensure it's executable if it's a script
+    if [[ "$src" == "$dest" ]]; then
+        echo -e "   ${ICON_CHECK} ${DIM}$(basename "$src")${RESET} is already in place."
+        return
+    fi
+
     [ -e "$dest" ] || [ -L "$dest" ] && rm -rf "$dest"
     ln -sf "$src" "$dest"
     echo -e "   ${ICON_LINK} ${DIM}$(basename "$src")${RESET} -> ${BLUE}$dest${RESET}"
@@ -129,20 +150,31 @@ done
 
 # 4. PERMISSIONS
 chmod +x "$CONFIG_DIR/"*.sh
-print_success "Permissions set."
+print_success "Permissions set for scripts."
 
 # 5. WEATHER CONFIG
 ENV_FILE="$CONFIG_DIR/.env"
 if [ ! -f "$ENV_FILE" ] || [[ $1 == "--reconfig" ]]; then
     print_step "Configuring Weather Location..."
+    if [ -f "$ENV_FILE" ]; then
+        source "$ENV_FILE"
+        echo -e "   ${ICON_INFO} Current city: ${CYAN}$WEATHER_CITY${RESET}"
+    fi
     read -p "   Enter City (e.g., London,UK): " CITY
-    echo "WEATHER_CITY=\"$CITY\"" > "$ENV_FILE"
-    print_success "Config saved to .env"
+    if [ -n "$CITY" ]; then
+        echo "WEATHER_CITY=\"$CITY\"" > "$ENV_FILE"
+        print_success "Config saved to .env"
+    else
+        print_success "Keeping current config."
+    fi
 fi
 
 echo ""
 echo -e "${GREEN}======================================================${RESET}"
 echo -e "${BOLD}${PINK}   INSTALLATION COMPLETE! ${ICON_ROCKET}${RESET}"
 echo -e "${GREEN}======================================================${RESET}"
-echo -e "\n   Restart Waybar to apply changes."
+echo -e "\n   ${BOLD}Next Steps:${RESET}"
+echo -e "   1. Ensure ${CYAN}JetBrainsMono Nerd Font${RESET} is installed."
+echo -e "   2. Restart Waybar: ${DIM}pkill waybar && waybar &${RESET}"
+echo -e "   3. Enjoy your glassmorphism dashboard!"
 echo ""

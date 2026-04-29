@@ -1,7 +1,4 @@
 <h1 align="center">
-  <br>
-  <img src="assets/waybar.png" alt="Omarchy Waybar" width="800">
-  <br>
   ✨ Omarchy Waybar ✨
 </h1>
 
@@ -24,6 +21,11 @@
   <a href="#-customization">Customization</a>
 </div>
 
+<h1 align="center">
+  <br>
+  <img src="assets/waybar.png" alt="Omarchy Waybar" width="800">
+  <br>
+</h1>
 ---
 
 ## 🚀 Quick Install
@@ -65,8 +67,8 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 - **Rich Dashboards**: Tooltips show high-res progress bars (`━━●──`).
 
 ### 📊 System Vitals & Network
-- Monitor **CPU**, **RAM**, **Swap**, and **NVIDIA GPU** in one place.
-- **GPU Monitoring**: Real-time NVIDIA utilization tracking (requires `nvidia-smi`).
+- Monitor **CPU**, **RAM**, **Swap**, and **GPU** in one place.
+- **Hybrid GPU Monitoring**: Real-time tracking for **NVIDIA**, **Intel**, and **AMD** GPUs (automatically detects active card).
 - **Real-time Network**: Download and Upload speeds with progress bars integrated into the vitals tooltip.
 - Monospace-aligned progress bars for perfect visual symmetry.
 - Click to launch `btop` for deep-dive analysis.
@@ -77,10 +79,16 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 
 ---
 
-## 🛠️ Manual Installer
+## 🛠️ Installation
 
+### Quick Install (Piping to Bash)
+To install this configuration with a single command, run:
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config/main/install.sh)"
+```
+
+### Manual Installation
 To install with the full visual experience, run:
-
 ```bash
 git clone https://github.com/AzeemAli14/waybar-config.git ~/.config/waybar
 cd ~/.config/waybar
@@ -89,6 +97,16 @@ chmod +x install.sh
 ```
 
 > **Note:** The installer will prompt you for your **Location (City)** to configure the weather module.
+
+---
+
+## ⚙️ Configuration
+
+### Weather Location
+To change your city after installation, you can either edit the `.env` file or run the installer with the reconfig flag:
+```bash
+~/.config/waybar/install.sh --reconfig
+```
 
 ---
 
@@ -108,9 +126,9 @@ Ensure these are installed for the full experience:
 
 | Type | Packages |
 | :--- | :--- |
-| **Core** | `waybar`, `jq`, `curl` |
+| **Core** | `waybar`, `jq`, `curl`, `awk`, `procps` (`top`, `free`) |
 | **Media** | `playerctl`, `pamixer` |
-| **System** | `btop`, `hyprctl`, `nvidia-smi` (optional) |
+| **System** | `btop`, `hyprctl`, `nvidia-smi` (optional for NVIDIA users) |
 | **Fonts** | `JetBrainsMono Nerd Font` (Required for Icons) |
 
 ---

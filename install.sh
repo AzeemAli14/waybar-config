@@ -152,22 +152,10 @@ done
 chmod +x "$CONFIG_DIR/"*.sh
 print_success "Permissions set for scripts."
 
-# 5. WEATHER CONFIG
-ENV_FILE="$CONFIG_DIR/.env"
-if [ ! -f "$ENV_FILE" ] || [[ $1 == "--reconfig" ]]; then
-    print_step "Configuring Weather Location..."
-    if [ -f "$ENV_FILE" ]; then
-        source "$ENV_FILE"
-        echo -e "   ${ICON_INFO} Current city: ${CYAN}$WEATHER_CITY${RESET}"
-    fi
-    read -p "   Enter City (e.g., London,UK): " CITY
-    if [ -n "$CITY" ]; then
-        echo "WEATHER_CITY=\"$CITY\"" > "$ENV_FILE"
-        print_success "Config saved to .env"
-    else
-        print_success "Keeping current config."
-    fi
-fi
+# 5. CLEANUP & FINALIZE
+print_step "Finalizing installation..."
+# Remove legacy .env if it exists as it's no longer needed for weather
+[ -f "$CONFIG_DIR/.env" ] && rm "$CONFIG_DIR/.env"
 
 echo ""
 echo -e "${GREEN}======================================================${RESET}"

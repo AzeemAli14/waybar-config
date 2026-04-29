@@ -53,12 +53,12 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 
 ## ✨ Features
 
-### 🌤️ Pro Weather Engine (Enhanced)
-- **wttr.in Integration**: Switched to `wttr.in` for superior real-time accuracy (no API key required!).
-- **High/Low Accuracy**: Pulls from 24-hour forecasts to show actual daily ranges.
-- **Precision Data**: 1-decimal "Feels Like" accuracy to see subtle climate shifts.
-- **Offline Mode**: Automatically caches data for view when you're disconnected.
-- **Auto-Sync**: Refreshes every hour or on-click.
+### 🌤️ Pro Weather Engine (Automated)
+- **Open-Meteo Integration**: Powered by **Open-Meteo** for precise, real-time data.
+- **Auto-Location**: Detects your city automatically using **IP-API** (no manual setup required).
+- **Comprehensive Tooltip**: Feels like, High/Low, Humidity, Wind, Cloud cover, and Sunrise/Sunset.
+- **Offline Mode**: Automatically caches data for viewing when you're disconnected.
+- **Dynamic Icons**: Changes based on weather condition and day/night cycle.
 - **Perfect Alignment**: Monospaced, pixel-perfect layout for all weather vitals.
 
 ### 🎵 Advanced Media Control
@@ -94,18 +94,6 @@ git clone https://github.com/AzeemAli14/waybar-config.git ~/.config/waybar
 cd ~/.config/waybar
 chmod +x install.sh
 ./install.sh
-```
-
-> **Note:** The installer will prompt you for your **Location (City)** to configure the weather module.
-
----
-
-## ⚙️ Configuration
-
-### Weather Location
-To change your city after installation, you can either edit the `.env` file or run the installer with the reconfig flag:
-```bash
-~/.config/waybar/install.sh --reconfig
 ```
 
 ---

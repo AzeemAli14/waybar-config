@@ -141,7 +141,7 @@ full_text="$player_icon $status_icon $title_scrolled_esc <span size='smaller' al
 
 # Build Beautiful Tooltip
 tooltip="<span color='$accent_color' weight='bold' size='large'>$player_icon $player_display</span>\n"
-tooltip+="<span size='large' font='JetBrainsMono Nerd Font' weight='bold'><tt>$title_tt_scrolled_esc</tt></span>\n"
+tooltip+="<span size='large' font='JetBrainsMono Nerd Font' weight='bold'>󰎈 <tt>$title_tt_scrolled_esc</tt></span>\n"
 tooltip+="<span size='medium' alpha='80%'>󰠃 $artist_esc</span>\n"
 if [ -n "$album_esc" ] && [ "$album_esc" != "$title_esc" ]; then
     tooltip+="<span alpha='60%'>󰀥 $album_esc</span>"

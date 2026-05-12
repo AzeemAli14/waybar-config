@@ -129,3 +129,4 @@ jq -nc \
     --arg text "$icon ${temp}°C" \
     --arg tooltip "$tooltip" \
     '{ text: $text, tooltip: $tooltip }'
+

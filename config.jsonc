@@ -2,92 +2,46 @@
   "reload_style_on_change": true,
   "layer": "top",
   "position": "top",
-  "height": 38,
+  "height": 44,
   "spacing": 0,
-  "margin-top": 2,
+  "margin-top": 5,
   "margin-left": 10,
   "margin-right": 10,
 
-  "modules-left": ["custom/omarchy", "custom/active_window"],
+  "modules-left": [
+    "custom/omarchy",
+    "hyprland/workspaces",
+    "custom/active_window",
+    "custom/media"
+  ],
 
-  "modules-center": ["group/system", "hyprland/workspaces", "group/info"],
+  "modules-center": [
+    "clock"
+  ],
 
-  "modules-right": ["group/right"],
-
-  /* ---------------- CENTER GROUPS ---------------- */
-
-  "group/system": {
-    "orientation": "inherit",
-    "modules": ["custom/vitals", "custom/separator#blank", "custom/media"],
-  },
-
-  "group/info": {
-    "orientation": "inherit",
-    "modules": [
-      "clock",
-      "custom/weather",
-      "custom/screenrecording-indicator",
-      "custom/update",
-    ],
-  },
-
-  "group/right": {
-    "orientation": "inherit",
-    "modules": [
-      "group/tray-expander",
-      "custom/separator#blank",
-      "custom/separator#dot",
-      "custom/separator#blank",
-      "pulseaudio",
-      "bluetooth",
-      "network",
-      "battery",
-    ],
-  },
+  "modules-right": [
+    "custom/vitals",
+    "custom/weather",
+    "bluetooth",
+    "network",
+    "pulseaudio",
+    "battery",
+    "custom/power"
+  ],
 
   /* ---------------- CORE MODULES ---------------- */
 
   "custom/omarchy": {
-    "format": "<span font='omarchy'>\ue900</span>",
+    "format": "󱂬",
     "on-click": "omarchy-menu",
     "on-click-right": "xdg-terminal-exec",
-    "tooltip-format": "<span size='18000' weight='bold' foreground='#cba6f7'>OMARCHY</span> <span size='18000' weight='light' foreground='#f5e0dc'>OS</span>\n<span foreground='#45475a'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>\n<span foreground='#a6e3a1'>󱐋</span> <span weight='bold'>System State:</span>  <span foreground='#a6e3a1'>Optimal</span>\n<span foreground='#89b4fa'>󰀻</span> <span weight='bold'>Interface:</span>     <span foreground='#89b4fa'>Dashboard Ready</span>\n<span foreground='#f9e2af'>󰘳</span> <span weight='bold'>Master Key:</span>    <span foreground='#fab387'>󰘳 + 󰘶 + Space</span>\n<span foreground='#45475a'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>\n<span size='10500' alpha='70%'><i>\"Simplicity is the ultimate sophistication.\"</i></span>",
+    "tooltip": false
   },
 
   "custom/active_window": {
     "exec": "~/.config/waybar/window.sh",
     "return-type": "json",
-    "markup": true,
-  },
-
-  "hyprland/workspaces": {
-    "format": "{icon}",
-    "on-click": "activate",
-    "format-icons": {
-      "default": "",
-      "active": "",
-      "urgent": "",
-      "empty": "",
-    },
-    "persistent-workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": [],
-      "6": [],
-      "7": [],
-      "8": [],
-    },
-  },
-
-  /* ---------------- SYSTEM ---------------- */
-
-  "custom/vitals": {
-    "exec": "~/.config/waybar/vitals.sh",
-    "interval": 2,
-    "return-type": "json",
-    "on-click": "omarchy-launch-or-focus-tui btop",
+    "markup": true
   },
 
   "custom/media": {
@@ -97,7 +51,34 @@
     "markup": true,
     "on-click": "playerctl play-pause",
     "on-scroll-up": "playerctl next",
-    "on-scroll-down": "playerctl previous",
+    "on-scroll-down": "playerctl previous"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "all-outputs": true,
+    "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": []
+    }
+  },
+
+  /* ---------------- SYSTEM ---------------- */
+
+  "custom/vitals": {
+    "exec": "~/.config/waybar/vitals.sh",
+    "interval": 2,
+    "return-type": "json",
+    "on-click": "omarchy-launch-or-focus-tui btop",
+    "format": "{icon} {text}",
+    "format-icons": {
+        "vitals": ""
+    }
   },
 
   /* ---------------- CLOCK ---------------- */
@@ -114,14 +95,14 @@
         "months": "<span color='#cba6f7'><b>{}</b></span>",
         "days": "<span color='#cdd6f4'>{}</span>",
         "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
-        "today": "<span color='#f38ba8' background='#f38ba833'><b><u>{}</u></b></span>",
-      },
+        "today": "<span color='#f38ba8' background='#f38ba833'><b><u>{}</u></b></span>"
+      }
     },
     "actions": {
       "on-click-right": "mode",
       "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down",
-    },
+      "on-scroll-down": "shift_down"
+    }
   },
 
   /* ---------------- NETWORK ---------------- */
@@ -132,48 +113,39 @@
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format-ethernet": "󰌘",
     "format-disconnected": "󰤮",
-    "tooltip-format": "<span size='13000' foreground='#f5c2e7'>󰤨   <b>Network Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰈀 Interface:  </b> {ifname}</tt>\n<tt><b>󰩟 IP Address: </b> {ipaddr}</tt>\n<tt><b>󰩠 Gateway:    </b> {gwaddr}</tt>\n<tt><b>󰩢 Netmask:    </b> {netmask}</tt>",
-    "tooltip-format-wifi": "<span size='13000' foreground='#f5c2e7'>󰤨   <b>WiFi Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰖩 SSID:       </b> {essid}</tt>\n<tt><b>󰀝 Frequency:  </b> {frequency} GHz</tt>\n<tt><b>󰤨 Signal:     </b> {signalStrength}%</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰇚 Download:   </b> {bandwidthDownBytes}</tt>\n<tt><b>󰕒 Upload:     </b> {bandwidthUpBytes}</tt>",
-    "tooltip-format-ethernet": "<span size='13000' foreground='#f5c2e7'>󰌘   <b>Ethernet Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰈀 Interface:  </b> {ifname}</tt>\n<tt><b>󰩟 IP Address: </b> {ipaddr}</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰇚 Download:   </b> {bandwidthDownBytes}</tt>\n<tt><b>󰕒 Upload:     </b> {bandwidthUpBytes}</tt>",
-    "tooltip-format-disconnected": "<span size='13000' foreground='#f38ba8'>󰤮   <b>Disconnected</b></span>",
-    "on-click": "omarchy-launch-wifi",
+    "tooltip-format": "<span size='13000' foreground='#f5c2e7'>󰤨   <b>Network Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰈀 Interface:  </b> {ifname}</tt>\n<tt><b>󰩟 IP Address: </b> {ipaddr}</tt>",
+    "on-click": "omarchy-launch-wifi"
   },
 
   /* ---------------- BATTERY ---------------- */
 
   "battery": {
     "interval": 10,
-    "format": "{capacity}% {icon}",
-    "format-charging": "{capacity}% {icon}",
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
     "format-plugged": " {capacity}%",
-    "format-icons": {
-      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-    },
-    "tooltip-format": "<span size='13000' foreground='#a6e3a1'>󰁹   <b>Battery Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰁹 Capacity:  </b> {capacity}%</tt>\n<tt><b>󰓠 Health:    </b> {health}%</tt>\n<tt><b>󰚥 Power:     </b> {power}W</tt>\n<tt><b>󰂄 Cycles:    </b> {cycles}</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰅐 Remaining: </b> {time}</tt>",
-    "tooltip-format-charging": "<span size='13000' foreground='#f9e2af'>󰂄   <b>Charging</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰁹 Capacity:  </b> {capacity}%</tt>\n<tt><b>󰓠 Health:    </b> {health}%</tt>\n<tt><b>󰚥 Power:     </b> {power}W</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰅐 Until Full:</b> {time}</tt>",
-    "tooltip-format-plugged": "<span size='13000' foreground='#89b4fa'>󰚥   <b>Plugged In</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰁹 Capacity:  </b> {capacity}%</tt>\n<tt><b>󰓠 Health:    </b> {health}%</tt>",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip-format": "{timeTo}",
     "states": {
       "warning": 20,
-      "critical": 10,
+      "critical": 10
     },
-    "on-click": "omarchy-menu power",
+    "on-click": "omarchy-menu power"
   },
 
   /* ---------------- AUDIO ---------------- */
 
   "pulseaudio": {
-    "format": "{icon}",
-    "format-muted": "",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 {volume}%",
     "format-icons": {
       "headphone": "",
       "headset": "",
-      "default": ["", "", ""],
+      "default": ["󰕿", "󰖀", "󰕾"]
     },
     "scroll-step": 5,
     "on-click": "omarchy-launch-audio",
-    "on-click-right": "pamixer -t",
-    "tooltip-format": "<span size='13000' foreground='#cba6f7'>   <b>Audio Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰕾 Volume: </b> {volume}%</tt>\n<tt><b>󰓠 Device: </b> {desc}</tt>",
+    "on-click-right": "pamixer -t"
   },
 
   /* ---------------- BLUETOOTH ---------------- */
@@ -181,10 +153,11 @@
   "bluetooth": {
     "format": "󰂯",
     "format-disabled": "󰂲",
-    "format-connected": "",
-    "tooltip-format": "<span size='13000' foreground='#89b4fa'>   <b>Bluetooth Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰂯 Status:     </b> {status}</tt>\n<tt><b>󰓠 Controller: </b> {controller_alias}</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n{device_enumerate}",
-    "tooltip-format-enumerate-connected": "<tt><b>󰂱 Device:     </b> {device_alias}</tt>",
-    "on-click": "omarchy-launch-bluetooth",
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "omarchy-launch-bluetooth"
   },
 
   /* ---------------- CUSTOM ---------------- */
@@ -194,81 +167,12 @@
     "interval": 3600,
     "return-type": "json",
     "signal": 9,
-    "on-click": "pkill -RTMIN+9 waybar",
+    "on-click": "pkill -RTMIN+9 waybar"
   },
 
-  "custom/update": {
-    "format": "",
-    "exec": "omarchy-update-available",
-    "signal": 7,
-    "interval": 21600,
-    "tooltip-format": "Omarchy update available",
-    "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
-  },
-
-  "custom/separator#blank": {
-    "format": " ",
-    "interval": "once",
-    "tooltip": false,
-  },
-
-  "custom/separator#dot": {
-    "format": "",
-    "interval": "once",
-    "tooltip": false,
-  },
-  "group/tray-expander": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item",
-    },
-    "modules": ["custom/expand-icon", "tray"],
-  },
-  "custom/expand-icon": {
-    "format": "",
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": "",
-  },
-  "custom/screenrecording-indicator": {
-    "on-click": "omarchy-cmd-screenrecord",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
-    "signal": 8,
-    "return-type": "json",
-  },
-  "custom/idle-indicator": {
-    "on-click": "omarchy-toggle-idle",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/idle.sh",
-    "signal": 9,
-    "return-type": "json",
-  },
-  "custom/notification-silencing-indicator": {
-    "on-click": "omarchy-toggle-notification-silencing",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/notification-silencing.sh",
-    "signal": 10,
-    "return-type": "json",
-  },
-  "custom/voxtype": {
-    "exec": "omarchy-voxtype-status",
-    "return-type": "json",
-    "format": "{icon}",
-    "format-icons": {
-      "idle": "",
-      "recording": "󰍬",
-      "transcribing": "󰔟",
-    },
-    "tooltip": true,
-    "on-click-right": "omarchy-voxtype-config",
-    "on-click": "omarchy-voxtype-model",
-  },
-
-  /* ---------------- TRAY ---------------- */
-
-  "tray": {
-    "icon-size": 12,
-    "spacing": 17,
-  },
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "omarchy-menu power",
+    "tooltip": false
+  }
 }

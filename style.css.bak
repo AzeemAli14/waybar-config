@@ -1,0 +1,278 @@
+@import "../omarchy/current/theme/waybar.css";
+
+/* 
+ * DARK GLASSY THEME
+ * A modern, transparent, and refined glassmorphism look.
+ */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: 'JetBrainsMono Nerd Font', 'JetBrains Mono', monospace;
+    font-size: 13px;
+    min-height: 0;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.377);
+}
+
+/* The Main Bar - Transparent Glassy Effect */
+window#waybar {
+    background-color: alpha(@background, 0.7);
+    border: 1px solid alpha(@foreground, 0.1);
+    border-radius: 12px;
+    color: @foreground;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+/* --- MODULE CONTAINERS --- */
+
+.modules-left, .modules-center, .modules-right {
+    padding: 2px 4px;
+}
+
+/* --- WORKSPACES: Glassy Pill --- */
+
+#workspaces {
+    background: alpha(@foreground, 0.08);
+    margin: 4px 6px;
+    padding: 0 4px;
+    border-radius: 20px;
+    border: 1px solid alpha(@foreground, 0.05);
+}
+
+#workspaces button {
+    color: alpha(@foreground, 0.4);
+    padding: 0 10px;
+    margin: 3px 2px;
+    border-radius: 15px;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.active {
+    color: @foreground;
+    background: alpha(@foreground, 0.15);
+    font-weight: 800;
+    text-shadow: 0 0 10px alpha(@foreground, 0.5);
+}
+
+#workspaces button:hover {
+    background: alpha(@foreground, 0.1);
+    color: @foreground;
+}
+
+#workspaces button.urgent {
+    background-color: #bf616a;
+    color: #eceff4;
+}
+
+#workspaces button.empty {
+    color: alpha(@foreground, 0.15);
+}
+
+/* --- BRANDING / MENU --- */
+
+#custom-omarchy {
+    background: alpha(@foreground, 0.1);
+    color: @foreground;
+    border-radius: 10px;
+    margin: 4px 6px;
+    padding: 0 12px;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid alpha(@foreground, 0.05);
+}
+
+#custom-active_window {
+    background: alpha(@foreground, 0.08);
+    color: @foreground;
+    border-radius: 20px;
+    margin: 4px 6px;
+    padding: 0 16px;
+    font-weight: 600;
+    font-size: 13px;
+    border: 1px solid alpha(@foreground, 0.05);
+    transition: all 0.3s cubic-bezier(.55,-0.04,.3,1.44);
+}
+
+#custom-active_window.empty {
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+#custom-active_window:hover {
+    background: alpha(@foreground, 0.12);
+    border: 1px solid alpha(@foreground, 0.1);
+}
+
+/* --- GROUP STYLING: Glassy Containers --- */
+
+#group-system,
+#group-info,
+#group-right {
+    background: alpha(@foreground, 0.05);
+    border-radius: 12px;
+    margin: 4px 3px;
+    padding: 2px 8px;
+    border: 1px solid alpha(@foreground, 0.03);
+}
+
+/* --- INDIVIDUAL MODULES --- */
+
+#clock, #battery, #custom-vitals, #network, #pulseaudio, 
+#tray, #custom-weather, #custom-update, #bluetooth, #custom-media, #custom-expand-icon {
+    padding: 0 8px;
+    transition: all 0.3s ease;
+}
+
+#clock:hover, #battery:hover, #pulseaudio:hover, #network:hover, #tray:hover, #custom-weather:hover, #custom-media:hover, #custom-vitals:hover, #bluetooth:hover, #custom-expand-icon:hover {
+    background: alpha(@foreground, 0.05);
+    border-radius: 8px;
+}
+
+#custom-expand-icon {
+    color: alpha(@foreground, 0.6);
+    font-size: 14px;
+}
+
+#group-tray-expander {
+    background: alpha(@foreground, 0.05);
+    border-radius: 12px;
+    margin: 0 4px;
+    padding: 2px 4px;
+    border: 1px solid alpha(@foreground, 0.03);
+}
+
+/* Color Accents */
+#clock {
+    font-weight: 800;
+    color: @foreground;
+}
+
+#custom-weather {
+    color: @foreground;
+    font-weight: 800;
+}
+#custom-media {
+    color: alpha(@foreground, 0.7);
+    font-weight: 700;
+    padding: 0 12px;
+    margin: 4px 6px;
+    border-radius: 12px;
+    background: alpha(@foreground, 0.03);
+    min-width: 300px;
+}
+
+#custom-media tooltip {
+    padding: 0px; /* Padding moved to label for better control */
+}
+
+#custom-media tooltip label {
+    padding: 15px;
+    font-size: 14px;
+    min-width: 450px;
+}
+
+#custom-media.Playing {
+    color: @foreground;
+    background: alpha(@foreground, 0.08);
+    border: 1px solid alpha(@foreground, 0.05);
+    text-shadow: 0 0 5px alpha(@foreground, 0.3);
+}
+
+#custom-media.Paused {
+    color: alpha(@foreground, 0.4);
+    background: alpha(@foreground, 0.02);
+}
+
+#custom-media.spotify {
+    color: #1DB954; /* Spotify Green */
+}
+
+#custom-media.spotify.Playing {
+    text-shadow: 0 0 8px alpha(#1DB954, 0.4);
+}
+
+#custom-media:hover {
+    background: alpha(@foreground, 0.12);
+}
+
+#battery    { 
+    color: @foreground;
+    font-weight: 700;
+}
+
+#battery.charging {
+    color: #91ff32;
+    background-color: alpha(#aaff60, 0.1);
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+#battery.critical:not(.charging) {
+    background-color: alpha(#ff818e, 0.1);
+    color: #ff384c;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+#cpu    { color: @foreground; }
+#memory { color: @foreground; }
+#network { color: @foreground; }
+#pulseaudio { color: @foreground; }
+
+/* --- TOOLTIPS --- */
+
+#custom-omarchy tooltip {
+    background: alpha(@background, 0.8);
+    background-image: url("assets/icon.png");
+    background-repeat: no-repeat;
+    background-position: center 20px;
+    background-size: 80px;
+    border: 1px solid alpha(#cba6f7, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 0 15px 2px alpha(#cba6f7, 0.3);
+}
+
+#custom-omarchy tooltip label {
+    padding: 110px 20px 20px 20px;
+}
+
+tooltip {
+    background-color: alpha(@background, 0.9);
+    border: 2px solid alpha(@foreground, 0.15);
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: @foreground;
+    padding: 16px;
+    font-size: 16px;
+    font-family: 'JetBrainsMono Nerd Font', 'JetBrains Mono', monospace;
+}
+
+/* Calendar Widget Specifics */
+calendar {
+    padding: 8px;
+    background: alpha(@foreground, 0.03);
+    border-radius: 12px;
+}
+
+calendar .header {
+    padding: 8px;
+    font-weight: 900;
+}
+
+calendar .today {
+    background: alpha(@foreground, 0.1);
+    color: #f38ba8;
+    border-radius: 8px;
+    font-weight: 900;
+}
+
+/* Simple Separator */
+#custom-separator {
+    color: alpha(@foreground, 0.2);
+    padding: 0 2px;
+}

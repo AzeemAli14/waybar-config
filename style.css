@@ -37,7 +37,7 @@ window#waybar {
 #custom-omarchy {
     border: 2px solid #89dceb; /* Cyan */
     color: #89dceb;
-    padding: 2px 0;
+    padding: 1px 4px;
     min-width: 40px;
 }
 
@@ -48,11 +48,16 @@ window#waybar {
 #workspaces button {
     color: #f5c2e7;
     padding: 0 4px;
+    border-radius: 20px;
+    padding: 1px 5px;
 }
 
 #workspaces button.active {
     background: rgba(245, 194, 231, 0.2);
     font-weight: bold;
+    border-radius: 20px;
+    padding: 1px 4px;
+    border: #89b4fa 2px solid; /* Blue */
 }
 
 #custom-active_window {
@@ -71,8 +76,9 @@ window#waybar {
 }
 
 #custom-vitals {
-    border: 2px solid #89dceb; /* Cyan */
-    color: #89dceb;
+    background: linear-gradient(135deg, rgba(137, 220, 235, 0.1) 0%, rgba(203, 166, 247, 0.1) 100%);
+    border: 2px solid #89dceb;
+    color: #cdd6f4;
 }
 
 #custom-weather {
@@ -88,7 +94,7 @@ window#waybar {
 #network {
     border: 2px solid #a6e3a1; /* Green */
     color: #a6e3a1;
-    padding: 2px 0;
+    padding: 1px 4px;
     min-width: 40px;
 }
 
@@ -105,7 +111,7 @@ window#waybar {
 #custom-power {
     border: 2px solid #f38ba8; /* Red */
     color: #f38ba8;
-    padding: 2px 0;
+    padding: 1px 4px;
     min-width: 40px;
 }
 

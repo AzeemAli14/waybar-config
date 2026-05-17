@@ -97,7 +97,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 2. DEPENDENCY CHECK
 print_step "Checking System Dependencies..."
-DEPS=("waybar" "jq" "curl" "playerctl" "pamixer" "btop" "awk" "top" "free")
+DEPS=("waybar" "jq" "curl" "playerctl" "pamixer" "btop" "awk" "top" "free" "quickshell" "calcure")
 MISSING_DEPS=()
 for dep in "${DEPS[@]}"; do
     if ! check_dependency "$dep"; then
@@ -114,6 +114,7 @@ fi
 # Optional Dependencies
 echo -e "\n   ${ICON_GEAR} ${DIM}Checking optional dependencies...${RESET}"
 check_dependency "nvidia-smi" || echo -e "      ${DIM}(Optional: Required for NVIDIA GPU monitoring)${RESET}"
+check_dependency "omarchy-update-available" || echo -e "      ${DIM}(Optional: Required for Omarchy update notifications)${RESET}"
 
 # Check for JetBrainsMono Nerd Font
 if fc-list :family | grep -iq "JetBrainsMono Nerd Font"; then
@@ -143,7 +144,7 @@ link_file() {
     echo -e "   ${ICON_LINK} ${DIM}$(basename "$src")${RESET} -> ${BLUE}$dest${RESET}"
 }
 
-files=(config.jsonc style.css media.sh weather.sh vitals.sh schedule.sh window.sh assets)
+files=(config.jsonc style.css media.sh weather.sh vitals.sh schedule.sh window.sh notifications.sh assets)
 for file in "${files[@]}"; do
     link_file "$DOTFILES_DIR/$file" "$CONFIG_DIR/$file"
 done

@@ -23,7 +23,7 @@
 
 <h1 align="center">
   <br>
-  <img src="assets/waybar.png" alt="Omarchy Waybar" width="800">
+  <img src="assets/waybar_v2.0/waybar_new.png" alt="Omarchy Waybar" width="800">
   <br>
 </h1>
 ---
@@ -33,21 +33,19 @@
 To install this configuration with a single command, run:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config/main/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config/v2.0/install.sh)"
 ```
-
-<!-- > **Note:** Replace `yourusername` with your actual GitHub username once you've pushed this repository! -->
 
 ---
 
 ## 🎨 Design Philosophy
 
 **Omarchy Waybar** isn't just a status bar; it's a dashboard for your desktop. Built with a focus on **Glassmorphism**, it features:
+- 💊 **Modern Pill Aesthetic**: Refactored layout with individual capsule-shaped modules.
 - 🧊 **Refined Transparency**: 70% opacity with subtle border glows.
 - 🌈 **Adaptive Accents**: Colors that shift based on your active media.
 - 🛠️ **Functional Tooltips**: Every icon hides a mini-dashboard with detailed insights.
 - 📥 **Collapsible Tray**: A sleek, animated drawer for system tray icons.
-- 💊 **Pill Styling**: Modern, pill-shaped active window indicators for a cleaner look.
 
 ---
 
@@ -57,24 +55,27 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 - **Open-Meteo Integration**: Powered by **Open-Meteo** for precise, real-time data.
 - **Auto-Location**: Detects your city automatically using **IP-API** (no manual setup required).
 - **Comprehensive Tooltip**: Feels like, High/Low, Humidity, Wind, Cloud cover, and Sunrise/Sunset.
-- **Offline Mode**: Automatically caches data for viewing when you're disconnected.
 - **Dynamic Icons**: Changes based on weather condition and day/night cycle.
 - **Perfect Alignment**: Monospaced, pixel-perfect layout for all weather vitals.
 
 ### 🎵 Advanced Media Control
-- **Smart Labels**: Unique icons for Spotify, VLC, and expanded Web Browser support (Zen, Waterfox, Mullvad, Epiphany, and more).
+- **Smart Labels**: Unique icons for Spotify, VLC, and expanded Web Browser support.
 - **Dynamic Styling**: The bar glows with "Spotify Green" or "YouTube Red" based on active media.
 - **Rich Dashboards**: Tooltips show high-res progress bars (`━━●──`).
 
 ### 📊 System Vitals & Network
 - Monitor **CPU**, **RAM**, **Swap**, and **GPU** in one place.
-- **Hybrid GPU Monitoring**: Real-time tracking for **NVIDIA**, **Intel**, and **AMD** GPUs (automatically detects active card).
-- **Real-time Network**: Download and Upload speeds with progress bars integrated into the vitals tooltip.
-- Monospace-aligned progress bars for perfect visual symmetry.
-- Click to launch `btop` for deep-dive analysis.
+- **Hybrid GPU Monitoring**: Real-time tracking for **NVIDIA**, **Intel**, and **AMD** GPUs.
+- **Redesigned Vitals**: Modern Nerd Font icons and dual-GPU monitoring.
+- **Real-time Network**: Download and Upload speeds with progress bars.
+
+### 🔔 Notifications & Updates
+- **Notification Center**: Integrated notification counter with right-click to dismiss all.
+- **Update Available**: Discreet indicator when system updates are available.
+- **Calcure Integration**: Right-click the clock to launch the **Calcure** TUI calendar.
 
 ### 🪟 Smart Window Titles
-- **Concise Titles**: Automatically extracts filenames from long strings (especially optimized for **VS Code**).
+- **Concise Titles**: Automatically extracts filenames from long strings (optimized for VS Code).
 - **Clean Interface**: Shows the App Name in the bar while keeping the filename in the tooltip.
 
 ---
@@ -84,13 +85,13 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 ### Quick Install (Piping to Bash)
 To install this configuration with a single command, run:
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config/main/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config/v2.0/install.sh)"
 ```
 
 ### Manual Installation
 To install with the full visual experience, run:
 ```bash
-git clone https://github.com/AzeemAli14/waybar-config.git ~/.config/waybar
+git clone -b v2.0 https://github.com/AzeemAli14/waybar-config.git ~/.config/waybar
 cd ~/.config/waybar
 chmod +x install.sh
 ./install.sh
@@ -99,13 +100,15 @@ chmod +x install.sh
 ---
 
 ## 📸 Tooltips
-
-| **Weather Forecast** | **Battery Health** | **Network Vitals** |
+| **Omarchy Menu** | **Current Window** | **Audio Player** |
 | :---: | :---: | :---: |
-| <img src="assets/weather_tooltip.png" width="280"> | <img src="assets/battery_tooltip.png" width="280"> | <img src="assets/network_tooltip.png" width="280"> |
-| **Bluetooth Status** | **Audio Dashboard** | **System Vitals** |
-| <img src="assets/bluetooth_tooltip.png" width="280"> | <img src="assets/audio_tooltip.png" width="280"> | <img src="assets/vitals_tooltip.png" width="280"> |
-
+| <img src="assets/waybar_v2.0/new_omarchy_menu.png" width="280"> | <img src="assets/waybar_v2.0/new_window.png" width="280"> | <img src="assets/waybar_v2.0/new_media.png" width="280"> |
+| **Calendar** | **System Vitals** | **Weather Vitals** |
+| <img src="assets/waybar_v2.0/new_time_calendar.png" width="280"> | <img src="assets/waybar_v2.0/new_vitals.png" width="280"> | <img src="assets/waybar_v2.0/new_weather.png" width="280"> |
+| **Bluetooth Status** | **WiFi Status** | **PusleAudio Status** |
+| <img src="assets/waybar_v2.0/new_bluetooth.png" width="280"> | <img src="assets/waybar_v2.0/new_networks.png" width="280"> | <img src="assets/waybar_v2.0/new_pulseAudio.png" width="280"> |
+| **Battery Status** |
+| <img src="assets/waybar_v2.0/new_battery.png" width="280"> |
 ---
 
 ## 📦 Dependencies
@@ -116,12 +119,11 @@ Ensure these are installed for the full experience:
 | :--- | :--- |
 | **Core** | `waybar`, `jq`, `curl`, `awk`, `procps` (`top`, `free`) |
 | **Media** | `playerctl`, `pamixer` |
-| **System** | `btop`, `hyprctl`, `nvidia-smi` (optional for NVIDIA users) |
+| **System** | `btop`, `hyprctl`, `nvidia-smi` (optional), `quickshell`, `calcure` |
 | **Fonts** | `JetBrainsMono Nerd Font` (Required for Icons) |
 
 ---
 
 <div align="center">
-  <!-- <sub>Crafted with ❤️ by the Omarchy Team</sub><br> -->
   <sub><i>"Simplicity is the ultimate sophistication."</i></sub>
 </div>

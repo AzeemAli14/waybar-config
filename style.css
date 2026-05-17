@@ -18,6 +18,7 @@ window#waybar {
 #workspaces,
 #custom-active_window,
 #custom-media,
+#custom-notifications,
 #clock,
 #custom-vitals,
 #custom-weather,
@@ -25,6 +26,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #battery,
+#custom-update,
 #custom-power {
     background: rgba(17, 17, 27, 0.8);
     border-radius: 20px;
@@ -70,14 +72,19 @@ window#waybar {
     color: #a6e3a1;
 }
 
+#custom-notifications {
+    border: 2px solid #f38ba8; /* Pink */
+    color: #f38ba8;
+    padding: 1px 10px;
+}
+
 #clock {
     border: 2px solid #fab387; /* Peach */
     color: #fab387;
 }
 
 #custom-vitals {
-    background: linear-gradient(135deg, rgba(137, 220, 235, 0.1) 0%, rgba(203, 166, 247, 0.1) 100%);
-    border: 2px solid #89dceb;
+    border: 2px solid #89dceb; /* Cyan */
     color: #cdd6f4;
 }
 
@@ -89,6 +96,11 @@ window#waybar {
 #bluetooth {
     border: 2px solid #b4befe; /* Lavender */
     color: #b4befe;
+}
+
+#custom-update {
+    border: 2px solid #94e2d5;          /* Teal border */
+    color: #94e2d5;                     /* Teal text */
 }
 
 #network {
@@ -126,6 +138,8 @@ window#waybar {
 #network:hover,
 #pulseaudio:hover,
 #battery:hover,
+#custom-update:hover,
+#custom-notifications:hover,
 #custom-power:hover {
     background: rgba(30, 30, 46, 1.0);
 }

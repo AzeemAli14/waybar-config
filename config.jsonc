@@ -16,7 +16,9 @@
   ],
 
   "modules-center": [
-    "clock"
+    "custom/notifications",
+    "clock",
+    "custom/update"
   ],
 
   "modules-right": [
@@ -36,6 +38,15 @@
     "on-click": "omarchy-menu",
     "on-click-right": "xdg-terminal-exec",
     "tooltip-format": "<span size='18000' weight='bold' foreground='#cba6f7'>OMARCHY</span> <span size='18000' weight='light' foreground='#f5e0dc'>OS</span>\n<span foreground='#45475a'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>\n<span foreground='#a6e3a1'>󱐋</span> <span weight='bold'>System State:</span>  <span foreground='#a6e3a1'>Optimal</span>\n<span foreground='#89b4fa'>󰀻</span> <span weight='bold'>Interface:</span>     <span foreground='#89b4fa'>Dashboard Ready</span>\n<span foreground='#f9e2af'>󰘳</span> <span weight='bold'>Master Key:</span>    <span foreground='#fab387'>󰘳 + 󰘶 + Space</span>\n<span foreground='#45475a'>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>\n<span size='10500' alpha='70%'><i>\"Simplicity is the ultimate sophistication.\"</i></span>"
+  },
+
+  "custom/update": {
+    "format": "󱍸",
+    "exec": "omarchy-update-available",
+    "signal": 7,
+    "interval": 21600,
+    "tooltip-format": "Omarchy update available",
+    "on-click": "omarchy-launch-floating-terminal-with-presentation omarchy-update",
   },
 
   "custom/active_window": {
@@ -77,10 +88,20 @@
     "on-click": "omarchy-launch-or-focus-tui btop"
   },
 
+  /* ---------------- NOTIFICATIONS ---------------- */
+
+  "custom/notifications": {
+    "exec": "~/.config/waybar/notifications.sh",
+    "interval": 2,
+    "return-type": "json",
+    "on-click": "quickshell ipc -c notifications call menuIpc toggle",
+    "on-click-right": "makoctl dismiss -a"
+  },
+
   /* ---------------- CLOCK ---------------- */
 
   "clock": {
-    "format": "󰅐 {:%I:%M %p}",
+    "format": "󰥔 {:%I:%M %p}",
     "format-alt": "󰃭 {:%A, %d %B %Y}",
     "on-click-right": "omarchy-launch-or-focus-tui calcure",
     "tooltip-format": "<span size='16pt' font='JetBrainsMono Nerd Font' weight='bold' foreground='#cba6f7'>󰃭  {:%B %Y}</span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━</span>\n<tt>{calendar}</tt>",
@@ -107,11 +128,11 @@
     "interval": 5,
     "format": "{icon}",
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-    "format-ethernet": "󰌘",
+    "format-ethernet": "󰈀",
     "format-disconnected": "󰤮",
     "tooltip-format": "<span size='13000' foreground='#f5c2e7'>󰤨   <b>Network Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰈀 Interface:  </b> {ifname}</tt>\n<tt><b>󰩟 IP Address: </b> {ipaddr}</tt>\n<tt><b>󰩠 Gateway:    </b> {gwaddr}</tt>\n<tt><b>󰩢 Netmask:    </b> {netmask}</tt>",
     "tooltip-format-wifi": "<span size='13000' foreground='#f5c2e7'>󰤨   <b>WiFi Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰖩 SSID:       </b> {essid}</tt>\n<tt><b>󰀝 Frequency:  </b> {frequency} GHz</tt>\n<tt><b>󰤨 Signal:     </b> {signalStrength}%</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰇚 Download:   </b> {bandwidthDownBytes}</tt>\n<tt><b>󰕒 Upload:     </b> {bandwidthUpBytes}</tt>",
-    "tooltip-format-ethernet": "<span size='13000' foreground='#f5c2e7'>󰌘   <b>Ethernet Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰈀 Interface:  </b> {ifname}</tt>\n<tt><b>󰩟 IP Address: </b> {ipaddr}</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰇚 Download:   </b> {bandwidthDownBytes}</tt>\n<tt><b>󰕒 Upload:     </b> {bandwidthUpBytes}</tt>",
+    "tooltip-format-ethernet": "<span size='13000' foreground='#f5c2e7'>󰈀   <b>Ethernet Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰈀 Interface:  </b> {ifname}</tt>\n<tt><b>󰩟 IP Address: </b> {ipaddr}</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰇚 Download:   </b> {bandwidthDownBytes}</tt>\n<tt><b>󰕒 Upload:     </b> {bandwidthUpBytes}</tt>",
     "tooltip-format-disconnected": "<span size='13000' foreground='#f38ba8'>󰤮   <b>Disconnected</b></span>",
     "on-click": "omarchy-launch-wifi"
   },
@@ -125,7 +146,7 @@
     "format-plugged": " {capacity}%",
     "format-icons": {
       "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
-      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "tooltip-format": "<span size='13000' foreground='#a6e3a1'>󰁹   <b>Battery Status</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰁹 Capacity:  </b> {capacity}%</tt>\n<tt><b>󰓠 Health:    </b> {health}%</tt>\n<tt><b>󰚥 Power:     </b> {power}W</tt>\n<tt><b>󰂄 Cycles:    </b> {cycles}</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰅐 Remaining: </b> {time}</tt>",
     "tooltip-format-charging": "<span size='13000' foreground='#f9e2af'>󰂄   <b>Charging</b></span>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰁹 Capacity:  </b> {capacity}%</tt>\n<tt><b>󰓠 Health:    </b> {health}%</tt>\n<tt><b>󰚥 Power:     </b> {power}W</tt>\n<span foreground='#6c7086'>━━━━━━━━━━━━━━━━━━━━━</span>\n<tt><b>󰅐 Until Full:</b> {time}</tt>",

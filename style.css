@@ -73,9 +73,47 @@ window#waybar {
 }
 
 #custom-notifications {
-    border: 2px solid #f38ba8; /* Pink */
+    border: 2px solid #f38ba8;
     color: #f38ba8;
-    padding: 1px 10px;
+    padding: 2px 14px;
+    margin: 5px 6px;
+    transition: all 0.3s cubic-bezier(.55,-0.04,.91,.94);
+}
+
+#custom-notifications.has-notifications {
+    border: 2px solid #f38ba8;
+    color: #f38ba8;
+}
+
+#custom-notifications.dnd {
+    border-color: #fab387;
+    background: rgba(250, 179, 135, 0.1);
+}
+
+#custom-notifications.none {
+    border-color: #f38ba8;
+    color: #f38ba8;
+    opacity: 0.8;
+}
+
+#custom-notifications:hover {
+    background: rgba(243, 139, 168, 0.2);
+}
+
+@keyframes notification_pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(243, 139, 168, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(243, 139, 168, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(243, 139, 168, 0);
+    }
+}
+
+#custom-notifications.has-notifications {
+    animation: notification_pulse 2s infinite;
 }
 
 #clock {
@@ -132,6 +170,7 @@ window#waybar {
 #custom-active_window:hover,
 #custom-media:hover,
 #clock:hover,
+#custom-notifications:hover,
 #custom-vitals:hover,
 #custom-weather:hover,
 #bluetooth:hover,
@@ -139,7 +178,6 @@ window#waybar {
 #pulseaudio:hover,
 #battery:hover,
 #custom-update:hover,
-#custom-notifications:hover,
 #custom-power:hover {
-    background: rgba(30, 30, 46, 1.0);
+    background: rgba(243, 139, 168, 0.2)
 }

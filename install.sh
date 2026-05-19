@@ -97,7 +97,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 2. DEPENDENCY CHECK
 print_step "Checking System Dependencies..."
-DEPS=("waybar" "jq" "curl" "playerctl" "pamixer" "btop" "awk" "top" "free" "quickshell" "calcure")
+DEPS=("waybar" "jq" "curl" "playerctl" "pamixer" "btop" "awk" "top" "free" "quickshell" "calcure" "mako")
 MISSING_DEPS=()
 for dep in "${DEPS[@]}"; do
     if ! check_dependency "$dep"; then

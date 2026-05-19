@@ -70,7 +70,10 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/AzeemAli14/waybar-config
 - **Real-time Network**: Download and Upload speeds with progress bars.
 
 ### 🔔 Notifications & Updates
-- **Notification Center**: Integrated notification counter with right-click to dismiss all.
+- **Smart Notification Center**: Integrated counter with Pango-formatted rich tooltips.
+- **DND Support**: Automatically detects "Do Not Disturb" mode via `makoctl` and changes icon/styling.
+- **Visual Feedback**: Dynamic pulse animations when notifications are pending.
+- **Actionable**: Left-click to view via Quickshell, right-click to dismiss all via Mako.
 - **Update Available**: Discreet indicator when system updates are available.
 - **Calcure Integration**: Right-click the clock to launch the **Calcure** TUI calendar.
 
@@ -119,7 +122,7 @@ Ensure these are installed for the full experience:
 | :--- | :--- |
 | **Core** | `waybar`, `jq`, `curl`, `awk`, `procps` (`top`, `free`) |
 | **Media** | `playerctl`, `pamixer` |
-| **System** | `btop`, `hyprctl`, `nvidia-smi` (optional), `quickshell`, `calcure` |
+| **System** | `btop`, `hyprctl`, `nvidia-smi` (optional), `quickshell`, `calcure`, `mako` |
 | **Fonts** | `JetBrainsMono Nerd Font` (Required for Icons) |
 
 ---

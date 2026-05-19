@@ -94,6 +94,7 @@
     "exec": "~/.config/waybar/notifications.sh",
     "interval": 2,
     "return-type": "json",
+    "markup": true,
     "on-click": "quickshell ipc -c notifications call menuIpc toggle",
     "on-click-right": "makoctl dismiss -a"
   },
